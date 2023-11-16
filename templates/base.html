@@ -1,0 +1,76 @@
+{% load static%}
+{%include 'navbar/navbar.html'%}
+ 
+
+<head>
+    <style> 
+        body, html { 
+            height: 100%; 
+            margin: 0; 
+            font-family: Arial, Helvetica, sans-serif; 
+        }       
+        .background { 
+            height: 100%; 
+            width: 100%; 
+            background-image: url("{% static 'image/background.jpg' %}"); 
+            overflow: auto;
+            background-size: cover; 
+            background-position: center;
+            padding-bottom: 30px;
+            overflow-x: hidden;
+        }      
+        .border-width { 
+            border: 2px solid white;
+            border-radius: 8px;
+        }
+        .center-horizontal {
+            margin: auto;
+            width: 70%;
+            padding: 10px;
+          }
+    </style> 
+</head> 
+
+{% block content%}
+{% endblock content%}
+
+{% comment %} {% include 'parts/footer.html' %} {% endcomment %}
+
+<html dir="rtl" lang="ar">
+    <body>
+
+    <script>
+
+        //===== close navbar-collapse when a  clicked
+        let navbarTogglerNine = document.querySelector(
+        ".navbar-nine .navbar-toggler"
+        );
+        navbarTogglerNine.addEventListener("click", function () {
+        navbarTogglerNine.classList.toggle("active");
+        });
+
+        // ==== left sidebar toggle
+        let sidebarLeft = document.querySelector(".sidebar-left");
+        let overlayLeft = document.querySelector(".overlay-left");
+        let sidebarClose = document.querySelector(".sidebar-close .close");
+
+        overlayLeft.addEventListener("click", function () {
+        sidebarLeft.classList.toggle("open");
+        overlayLeft.classList.toggle("open");
+        });
+        sidebarClose.addEventListener("click", function () {
+        sidebarLeft.classList.remove("open");
+        overlayLeft.classList.remove("open");
+        });
+
+        // ===== navbar nine sideMenu
+        let sideMenuLeftNine = document.querySelector(".navbar-nine .menu-bar");
+
+        sideMenuLeftNine.addEventListener("click", function () {
+        sidebarLeft.classList.add("open");
+        overlayLeft.classList.add("open");
+        });
+
+    </script>
+    </body>
+</html>
