@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'importData.apps.ImportdataConfig',
     'landing.apps.LandingConfig',
     'django.contrib.admin',
     'django.contrib.auth',

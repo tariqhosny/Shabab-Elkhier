@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <!DOCTYPE html>
+  <html dir="rtl" lang="ar">
+    <body>
+      <!-- ========================= contact-section start ========================= -->
+      <section id="contact" class="contact-section background">
+        <div class="container">
+          <div class="col-xl-8 center-horizontal">
+            <div class="contact-form-wrapper">
+              <div class="row">
+                <div class="col-xl-10 col-lg-8 mx-auto">
+                  <div class="section-title text-center">
+                    <h2>مسابقة شباب الخير بالبرقي</h2>
+                    <p>الان تستطيع التعرف علي درجات الطالب في السنوات السابقة من خلال ادخال الرقم القومي:</p>
+                  </div>
+                </div>
+              </div>
+              <form method="POST" action="#" class="contact-form">
+                <div class="row">
+                  {% csrf_token %}
+                  {{ form }}
+                  {% comment %} <input type="text" name="national_id" id="national_id" placeholder="الرقم القومي" required /> {% endcomment %}
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="button text-center rounded-buttons">
+                      <button type="submit" class="btn primary-btn rounded-full">احصل علي النتيجة</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          
+          {% if grades.count > 0%}
+          <div class="container">
+            <div class="row">
+              {% for grade in grades%}
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="pricing-style-fourteen">
+                  <div class="table-head">
+                    <h6 class="title">نتيجة عام {{grade.year.hijri_year}} هجريا</h4>
+                  </div>
+                  <table class="table table-bordered">
+                    <tbody>
+                      <tr>
+                        <th scope="row">الاسم</th>
+                        <td>{{grade.student.name}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">السورة</th>
+                        <td>{{grade.soura.title}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">الجزء</th>
+                        <td>{{grade.part.title}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">الدرجة</th>
+                        <td>{{grade.grade}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </section>
+
+      <a href="#" class="scroll-top btn-hover"><i class="lni lni-chevron-up"></i></a>
+    </body>
+  </html>
+{% endblock %}
