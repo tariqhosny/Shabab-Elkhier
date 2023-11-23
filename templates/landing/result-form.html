@@ -60,13 +60,25 @@
                       </tr>
                       <tr>
                         <th scope="row">الدرجة</th>
-                        <td>{{grade.grade}}</td>
+                        <td>%{{grade.grade}}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
               {% endfor %}
+            </div>
+          </div>
+          {% else %}
+          <div class="col-xl-12 center-horizontal">
+            <div class="contact-form-wrapper">
+              <div class="row">
+                <div class="col-xl-8 col-lg-8 mx-auto">
+                  <div class="section-title text-center">
+                    <h5 style="color:red">بيانات الطالب غير متاحة. الرجاء المحاولة مرة اخري</h5>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           {% endif %}
