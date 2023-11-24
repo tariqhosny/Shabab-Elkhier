@@ -22,7 +22,6 @@
                 <div class="row">
                   {% csrf_token %}
                   {{ form }}
-                  {% comment %} <input type="text" name="national_id" id="national_id" placeholder="الرقم القومي" required /> {% endcomment %}
                 </div>
                 <div class="row">
                   <div class="col-12">
@@ -35,52 +34,68 @@
             </div>
           </div>
           
-          {% if grades.count > 0%}
-          <div class="container">
-            <div class="row">
-              {% for grade in grades%}
-              <div class="col-lg-4 col-md-6 col-12">
+          {% if grades != None and grades.count > 0%}
+            <div class="container">
+              <div class="col-xl-8 center-horizontal">
                 <div class="pricing-style-fourteen">
-                  <div class="table-head">
-                    <h6 class="title">نتيجة عام {{grade.year.hijri_year}} هجريا</h4>
-                  </div>
                   <table class="table table-bordered">
                     <tbody>
                       <tr>
                         <th scope="row">الاسم</th>
-                        <td>{{grade.student.name}}</td>
+                        <td>{{grades.first.student.name}}</td>
                       </tr>
                       <tr>
-                        <th scope="row">السورة</th>
-                        <td>{{grade.soura.title}}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">الجزء</th>
-                        <td>{{grade.part.title}}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">الدرجة</th>
-                        <td>%{{grade.grade}}</td>
+                        <th scope="row">الحد الادني للمسابقة القادمة</th>
+                        <td>{{grades.first.student.next_soura}}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
-              {% endfor %}
-            </div>
-          </div>
-          {% else %}
-          <div class="col-xl-12 center-horizontal">
-            <div class="contact-form-wrapper">
               <div class="row">
-                <div class="col-xl-8 col-lg-8 mx-auto">
-                  <div class="section-title text-center">
-                    <h5 style="color:red">بيانات الطالب غير متاحة. الرجاء المحاولة مرة اخري</h5>
+                {% for grade in grades%}
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="pricing-style-fourteen">
+                    <div class="table-head">
+                      <h6 class="title">نتيجة عام {{grade.year.hijri_year}} هجريا - {{grade.year.year}} ميلاديا</h4>
+                    </div>
+                    <table class="table table-bordered">
+                      <tbody>
+                        <tr>
+                          <th scope="row">الاسم</th>
+                          <td>{{grade.student.name}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">السورة</th>
+                          <td>{{grade.soura.title}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">الجزء</th>
+                          <td>{{grade.part.title}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">الدرجة</th>
+                          <td>%{{grade.grade}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% elif grades == None %}
+            <div class="col-xl-8 center-horizontal">
+              <div class="contact-form-wrapper">
+                <div class="row">
+                  <div class="col-xl-8 col-lg-8 mx-auto">
+                    <div class="section-title text-center">
+                      <h5 style="color:red">بيانات الطالب غير متاحة. الرجاء المحاولة مرة اخري</h5>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
           {% endif %}
         </div>
       </section>

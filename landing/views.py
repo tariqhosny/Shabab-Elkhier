@@ -9,6 +9,7 @@ def landing(request):
 
 def results(request):
     form = {'form': GetResultsForm}
+    form['grades'] = []
     try:
         national_id = request.POST.get('nationalID')
         if national_id != None:
@@ -16,6 +17,7 @@ def results(request):
             grades = Grade.objects.all().filter(student = student)
             form['grades'] = grades
     except:
+        form['grades'] = None
         print("error")
     
     return render(request, 'landing/result-form.html', form)
