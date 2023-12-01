@@ -13,32 +13,21 @@ def importData(request):
     # counter = 0
     items = []
 
-    # grades = Grade.objects.all()
-    # parts = Part.objects.all()
-    # for grade in grades:
-    #     if grade.year.hijri_year == "1444":
-    #         if int(grade.part.number) > 0 and int(grade.part.number) <= 3:
-    #             next_amount = Part.objects.get(number = str(int(grade.part.number) + 1))
-    #         elif int(grade.part.number) >= 4 and int(grade.part.number) <= 8:
-    #             next_amount = Part.objects.get(number = str(int(grade.part.number) + 2))
-    #         elif int(grade.part.number) >= 9 and int(grade.part.number) <= 15:
-    #             next_amount = Part.objects.get(number = str(int(grade.part.number) + 3))
-    #         elif int(grade.part.number) >= 16 and int(grade.part.number) <= 20:
-    #             next_amount = Part.objects.get(number = str(int(grade.part.number) + 4))
-    #         elif int(grade.part.number) >= 20 and int(grade.part.number) <= 25:
-    #             next_amount = Part.objects.get(number = str(int(grade.part.number) + 5))
-    #         else:
-    #             next_amount = Part.objects.get(number = 30)
-    #         # student = grade.student
-    #         # student.next_amount = next_amount 
-    #         # student.save()
-    #         print("Saved")
-    #         item = [] 
-    #         item.append(grade.student.name)
-    #         item.append(grade.year.hijri_year)
-    #         item.append(grade.part.number)
-    #         item.append(grade.part.soura.first().title)
-    #         items.append(item)
+    grades = Grade.objects.all()
+    for grade in grades:
+        # if grade.year.hijri_year == "1443" and grade.student.next_amount == None:
+        #     student = grade.student
+        #     student.next_amount = grade.part
+        #     student.save()
+        if grade.student.next_amount == None:
+            item = [] 
+            item.append(grade.student.name)
+            item.append(grade.year.hijri_year)
+            item.append(grade.part.number)
+            item.append(grade.grade)
+            item.append(grade.part.soura.first().title)
+            item.append(grade.student.next_amount)
+            items.append(item)
     
     
     # excelFile = load_workbook('/Users/tariq/Desktop/2021.xlsx')
