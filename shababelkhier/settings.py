@@ -35,6 +35,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'submitStudent.apps.SubmitstudentConfig',
     'importData.apps.ImportdataConfig',
     'landing.apps.LandingConfig',
     'django.contrib.admin',

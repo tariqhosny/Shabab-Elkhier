@@ -10,64 +10,47 @@ from openpyxl import load_workbook
 
 def importData(request):
     
-    # counter = 0
     items = []
 
     grades = Grade.objects.all()
     for grade in grades:
-        if grade.year.hijri_year == "1444" and int(grade.part.number) == 30 and int(grade.grade) >= 69:
+        if grade.student.national_id == '31011032202535': # wrong national id
+            try:
+                student = Student.objects.get(national_id= '31011032202525')
+                # grade.student = student
+                # grade.save()
+                print('saved')
+            except (Student.DoesNotExist):
+                print('not found')
             # student = grade.student
             # student.isFinished = True
             # student.save()
             item = [] 
             item.append(grade.student.name)
-            item.append(grade.year.hijri_year)
-            item.append(grade.part.number)
+            item.append(grade.student.phone)
+            item.append(grade.soura.title)
             item.append(grade.grade)
-            item.append(grade.part.soura.first().title)
-            item.append(grade.student.next_amount)
+            item.append(grade.student.next_amount.title)
             items.append(item)
     
     
     # excelFile = load_workbook('/Users/tariq/Desktop/2021.xlsx')
     # ws = excelFile['sheet']
 
-    # for i in range(2, 852):
-        # for j in range(0, 3):
-        #     student = Student.objects.get(national_id= ws['C'+str(i)].value)
-        #     if j == 0:
-        #         part = Part.objects.get(number= ws['D'+str(i)].value)
-        #         grade = ws['J'+str(i)].value
-        #         year = Year.objects.get(year= '2021')
-        #     elif j == 1:
-        #         part = Part.objects.get(number= ws['E'+str(i)].value)
-        #         grade = ws['K'+str(i)].value
-        #         year = Year.objects.get(year= '2022')
-        #     else:
-                # part = Part.objects.get(number= ws['F'+str(i)].value)
-                # grade = ws['L'+str(i)].value
-                # year = Year.objects.get(year= '2023')
-
-            # data = Grade(grade= grade, student= student, part= part, year= year)
-            # data.save()
-        # name = ws['A'+str(i)].value
-        # phone = ws['F'+str(i)].value
-        # national_id = ws['B'+str(i)].value
+    # for i in range(2, 652):
+    #     phone = ws['G'+str(i)].value
+    #     national_id = ws['C'+str(i)].value
         # try:
         #     student = Student.objects.get(national_id= national_id)
-        #     if national_id != None:
-        #         part = Part.objects.get(number= ws['E'+str(i)].value)
-        #         grade = ws['C'+str(i)].value
-        #         year = Year.objects.get(year= '2021')
-        #         soura = part.soura.first()
-        #         data = Grade(grade= grade, student= student, part= part, year= year, soura= soura)
-        #         # data.save()
-        #         counter = counter + 1
+        #     if national_id != None and student.phone == None and phone != None:
+        #         student.phone = phone
+        #         student.save()
+        #         item = []
+        #         item.append(ws['B'+str(i)].value)
+        #         item.append(ws['C'+str(i)].value)
+        #         item.append(ws['G'+str(i)].value)
+        #         items.append(item)
+        #         print('saved')
         # except (Student.DoesNotExist):
-        #     print('tariq')
-        # item = []
-        # item.append(ws['A'+str(i)].value)
-        # item.append(ws['B'+str(i)].value)
-        # items.append(item)
-    # print(counter)
+        #     print('not found')
     return render(request, 'importData/importData.html', {'items': items})

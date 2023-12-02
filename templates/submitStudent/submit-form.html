@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <!DOCTYPE html>
+  <html dir="rtl" lang="ar">
+    <body>
+      <!-- ========================= contact-section start ========================= -->
+      <section id="contact" class="contact-section background">
+        <div class="container">
+          {% comment %} {% if form != None %} {% endcomment %}
+            <div class="col-xl-8 center-horizontal">
+                <div class="contact-form-wrapper">
+                    <div class="row">
+                        <div class="col-xl-10 col-lg-8 mx-auto">
+                        <div class="section-title text-center">
+                            <h2>مسابقة شباب الخير بالبرقي</h2>
+                            <p>الان تستطيع تسجيل الطالب في مسابقة هذا العام من خلال ادخال الرقم القومي:</p>
+                        </div>
+                        </div>
+                    </div>
+                    <form method="POST" action="#" class="contact-form">
+                        <div class="row">
+                        {% csrf_token %}
+                        {{ form }}
+                        </div>
+                        <div class="row">
+                        <div class="col-12">
+                            <div class="button text-center rounded-buttons">
+                            <button type="submit" class="btn primary-btn rounded-full">تسجيل الطالب</button>
+                            </div>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+          {% comment %} {% endif %} {% endcomment %}
+          {% if student != None and student != True%}
+            <div class="container">
+              <div class="col-xl-8 center-horizontal">
+                <div class="pricing-style-fourteen">
+                  <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                          <th scope="row">الاسم</th>
+                          <td>{{student.name}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">رقم تليفون ولي الامر</th>
+                          <td>{{student.phone}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">الحد الادني للمسابقة القادمة</th>
+                            {% if student.isFinished == True %}
+                            <td>{{student.next_amount.title}} (للتقييم فقط)</td>
+                            {% elif student.next_amount.number == '30' %}
+                            <td>{{student.next_amount.title}}</td>
+                            {% else %}
+                            <td>{{student.next_amount.number}} جزء</td>
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          {% elif student == None %}
+            <div class="col-xl-8 center-horizontal">
+              <div class="contact-form-wrapper">
+                <div class="row">
+                  <div class="col-xl-8 col-lg-8 mx-auto">
+                    <div class="section-title text-center">
+                      <h5 style="color:red">بيانات الطالب غير متاحة. الرجاء المحاولة مرة اخري</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </section>
+    </body>
+  </html>
+{% endblock %}

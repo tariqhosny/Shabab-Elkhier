@@ -6,8 +6,30 @@ from .models import Student
 from .models import Grade
 
 # Register your models here.
-admin.site.register(Part)
-admin.site.register(Soura)
-admin.site.register(Year)
-admin.site.register(Student)
-admin.site.register(Grade)
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ['name', 'national_id', 'phone', 'next_amount']
+    search_fields = ['name', 'national_id']
+
+class GradeAdmin(admin.ModelAdmin):
+    list_display = ['student', 'year', 'grade', 'part', 'soura']
+    list_filter = ['part', 'year']
+
+class SouraAdmin(admin.ModelAdmin):
+    list_display = ['title', 'number']
+    search_fields = ['title', 'number']
+
+class PartAdmin(admin.ModelAdmin):
+    list_display = ['title', 'number']
+    search_fields = ['title', 'number']
+
+class YearAdmin(admin.ModelAdmin):
+    list_display = ['hijri_year', 'year']
+    search_fields = ['hijri_year', 'year']
+
+admin.site.register(Part, PartAdmin)
+admin.site.register(Soura, SouraAdmin)
+admin.site.register(Year, YearAdmin)
+admin.site.register(Student, StudentAdmin)
+admin.site.register(Grade, GradeAdmin)
+admin.site.site_header = 'Shaba-Elkhier'
+admin.site.site_title = 'Shaba-Elkhier'
