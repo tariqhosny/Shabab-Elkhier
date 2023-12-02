@@ -46,7 +46,13 @@
                       </tr>
                       <tr>
                         <th scope="row">الحد الادني للمسابقة القادمة</th>
-                        <td>{{grades.first.student.next_amount.number}} جزء</td>
+                        {% if grades.first.student.isFinished == True %}
+                          <td>{{grades.first.student.next_amount.title}} (للتقييم فقط)</td>
+                        {% elif grades.first.student.next_amount.number == '30' %}
+                          <td>{{grades.first.student.next_amount.title}}</td>
+                        {% else %}
+                          <td>{{grades.first.student.next_amount.number}} جزء</td>
+                        {% endif %}
                       </tr>
                     </tbody>
                   </table>

@@ -15,11 +15,10 @@ def importData(request):
 
     grades = Grade.objects.all()
     for grade in grades:
-        # if grade.year.hijri_year == "1443" and grade.student.next_amount == None:
-        #     student = grade.student
-        #     student.next_amount = grade.part
-        #     student.save()
-        if grade.student.next_amount == None:
+        if grade.year.hijri_year == "1444" and int(grade.part.number) == 30 and int(grade.grade) >= 69:
+            # student = grade.student
+            # student.isFinished = True
+            # student.save()
             item = [] 
             item.append(grade.student.name)
             item.append(grade.year.hijri_year)

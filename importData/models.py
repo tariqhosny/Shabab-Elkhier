@@ -31,6 +31,7 @@ class Student(models.Model):
     photo = models.ImageField(upload_to='photos/students')
     next_amount = models.ForeignKey(Part, on_delete=models.PROTECT, null=True)
     active = models.BooleanField(default=True)
+    isFinished = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.name
