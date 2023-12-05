@@ -30,6 +30,7 @@ class Student(models.Model):
     phone = models.CharField(max_length=20, null=True)
     photo = models.ImageField(upload_to='photos/students')
     next_amount = models.ForeignKey(Part, on_delete=models.PROTECT, null=True)
+    ahkam = models.CharField(max_length=100, null=True)
     active = models.BooleanField(default=True)
     isFinished = models.BooleanField(default=False)
 
