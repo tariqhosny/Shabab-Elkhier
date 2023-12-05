@@ -12,18 +12,17 @@ def importData(request):
     
     items = []
 
-    students = Student.objects.all()
-    for student in students:
+    parts = Part.objects.all()
+    for part in parts:
         # if int(student.next_amount.number) > 7:
         #     student.ahkam = 'تحفة الأطفال ( حفظ وتطبيق )'
         # else:
         #     student.ahkam = 'لا يوجد'
         # student.save()
         item = [] 
-        item.append(student.name)
-        item.append(student.national_id)
-        item.append(student.ahkam)
-        item.append(student.next_amount.title)
+        item.append(part.title)
+        item.append(part.number)
+        item.append(part.soura.all())
         items.append(item)
 
     # grades = Grade.objects.all()

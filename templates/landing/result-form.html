@@ -85,7 +85,11 @@
                         </tr>
                         <tr>
                           <th scope="row">الدرجة</th>
+                          {% if grade.grade == '0' %}
+                          <td>لم يحضر الامتحان</td>
+                          {% else %}
                           <td>%{{grade.grade}}</td>
+                          {% endif %}
                         </tr>
                       </tbody>
                     </table>
