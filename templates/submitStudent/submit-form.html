@@ -8,7 +8,7 @@
       <!-- ========================= contact-section start ========================= -->
       <section id="contact" class="contact-section background">
         <div class="container">
-          {% comment %} {% if form != None %} {% endcomment %}
+          {% if form != None %}
             <div class="col-xl-8 center-horizontal">
                 <div class="contact-form-wrapper">
                     <div class="row">
@@ -25,42 +25,55 @@
                         {{ form }}
                         </div>
                         <div class="row">
-                        <div class="col-12">
-                            <div class="button text-center rounded-buttons">
-                            <button type="submit" class="btn primary-btn rounded-full">تسجيل الطالب</button>
-                            </div>
-                        </div>
+                          <div class="col-12">
+                              <div class="button text-center rounded-buttons">
+                              <button type="submit" class="btn primary-btn rounded-full">تسجيل الطالب</button>
+                              </div>
+                          </div>
                         </div>
                     </form>
                 </div>
             </div>
-          {% comment %} {% endif %} {% endcomment %}
+          {% endif %}
           {% if student != None and student != True%}
             <div class="container">
               <div class="col-xl-8 center-horizontal">
                 <div class="pricing-style-fourteen">
-                  <table class="table table-bordered">
-                    <tbody>
-                        <tr>
-                          <th scope="row">الاسم</th>
-                          <td>{{student.name}}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">رقم تليفون ولي الامر</th>
-                          <td>{{student.phone}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">الحد الادني للمسابقة القادمة</th>
-                            {% if student.isFinished == True %}
-                            <td>{{student.next_amount.title}} (للتقييم فقط)</td>
-                            {% elif student.next_amount.number == '30' %}
-                            <td>{{student.next_amount.title}}</td>
-                            {% else %}
-                            <td>{{student.next_amount.number}} جزء</td>
-                            {% endif %}
-                        </tr>
-                    </tbody>
-                  </table>
+                    <form method="POST" action="#" class="contact-form">
+                      <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                              <th scope="row">الاسم</th>
+                              <td>{{student.name}}</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">رقم تليفون ولي الامر</th>
+                              <td>{{student.phone}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">الحد الادني للمسابقة القادمة</th>
+                                {% if student.isFinished == True %}
+                                <td>{{student.next_amount.title}} (للتقييم فقط)</td>
+                                {% elif student.next_amount.number == '30' %}
+                                <td>{{student.next_amount.title}}</td>
+                                {% else %}
+                                <td>{{student.next_amount.number}} جزء</td>
+                                {% endif %}
+                            </tr>
+                        </tbody>
+                      </table>
+                      <div class="row">
+                      {% csrf_token %}
+                      {% comment %} {{ form }} {% endcomment %}
+                      </div>
+                      <div class="row">
+                          <div class="col-12">
+                              <div class="button text-center rounded-buttons">
+                              <button type="submit" class="btn primary-btn rounded-full">تسجيل الطالب</button>
+                              </div>
+                          </div>
+                      </div>
+                    </form>
                 </div>
               </div>
             </div>

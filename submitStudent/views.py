@@ -7,7 +7,7 @@ from importData.models import Student
 
 @csrf_protect
 def submitForm(request):
-    form = {'student': False, 'form': GetStudentForm}
+    form = {'student': False, 'form': None}
     try:
         national_id = request.POST.get('nationalID')
         if national_id != None:
