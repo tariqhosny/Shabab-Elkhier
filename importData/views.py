@@ -12,18 +12,18 @@ def importData(request):
     
     items = []
 
-    parts = Part.objects.all()
-    for part in parts:
-        # if int(student.next_amount.number) > 7:
-        #     student.ahkam = 'تحفة الأطفال ( حفظ وتطبيق )'
-        # else:
-        #     student.ahkam = 'لا يوجد'
-        # student.save()
-        item = [] 
-        item.append(part.title)
-        item.append(part.number)
-        item.append(part.soura.all())
-        items.append(item)
+    grades = Grade.objects.all()
+    for grade in grades:
+        if grade.student.national_id == '30310012209588' or grade.student.national_id == '30005012202485':
+            item = [] 
+            item.append(grade.student.name)
+            item.append(grade.part.title)
+            item.append(grade.soura.title)
+            if (int(grade.part.number) <= 15 and int(grade.soura.number) >= 18) or (int(grade.part.number) > 15 and int(grade.soura.number) < 18):
+                item.append('من سورة الناس الي سورة ' + grade.soura.title)
+            else:
+                item.append('من سورة الفاتحة الي سورة ' + grade.soura.title)
+            items.append(item)
 
     # grades = Grade.objects.all()
     # for grade in grades:

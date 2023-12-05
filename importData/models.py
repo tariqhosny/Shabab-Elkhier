@@ -11,7 +11,7 @@ class Soura(models.Model):
 
 class Part(models.Model):
     title = models.CharField(max_length=100)
-    number = models.CharField(max_length=2)
+    number = models.IntegerField(max_length=2)
     soura = models.ManyToManyField(Soura, null=True)
 
     def __str__(self) -> str:
@@ -28,7 +28,6 @@ class Student(models.Model):
     name = models.CharField(max_length=100)
     national_id = models.CharField(max_length=20)
     phone = models.CharField(max_length=20, null=True)
-    photo = models.ImageField(upload_to='photos/students')
     next_amount = models.ForeignKey(Part, on_delete=models.PROTECT, null=True)
     ahkam = models.CharField(max_length=100, null=True)
     active = models.BooleanField(default=True)

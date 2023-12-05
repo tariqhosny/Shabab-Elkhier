@@ -12,12 +12,19 @@ def landing(request):
 def results(request):
     form = {'form': GetResultsForm}
     form['grades'] = []
+    sour = []
     try:
         national_id = request.POST.get('nationalID')
         if national_id != None:
             student = Student.objects.get(national_id = national_id)
             grades = Grade.objects.all().filter(student = student)
             form['grades'] = grades
+            for grade in grades:
+                if (int(grade.part.number) <= 15 and int(grade.soura.number) >= 18) or (int(grade.part.number) > 15 and int(grade.soura.number) < 18):
+                    sour.append(grade.soura.title)
+                else:
+                    sour.append('من سورة الفاتحة الي سورة ' + grade.soura.title)
+            form['sour'] = sour
     except:
         form['grades'] = None
         print("error")

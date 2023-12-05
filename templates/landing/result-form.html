@@ -77,7 +77,11 @@
                         </tr>
                         <tr>
                           <th scope="row">السورة</th>
-                          <td>{{grade.soura.title}}</td>
+                          {% for soura in sour %}
+                            {% if forloop.counter == forloop.parentloop.counter %}
+                              <td>{{ soura }}</td>
+                            {% endif %}
+                          {% endfor %}
                         </tr>
                         <tr>
                           <th scope="row">الجزء</th>
