@@ -33,6 +33,9 @@ class Student(models.Model):
     active = models.BooleanField(default=True)
     isFinished = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self) -> str:
         return self.name
 
@@ -42,6 +45,9 @@ class Grade(models.Model):
     year = models.ForeignKey(Year, on_delete=models.PROTECT)
     part = models.ForeignKey(Part, on_delete=models.PROTECT)
     soura = models.ForeignKey(Soura, null=True, on_delete=models.PROTECT, related_name='student_soura')
+
+    class Meta:
+        ordering = ['student']
 
     def __str__(self) -> str:
         return self.student.name

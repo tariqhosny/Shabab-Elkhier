@@ -13,6 +13,7 @@ class StudentAdmin(admin.ModelAdmin):
 
 class GradeAdmin(admin.ModelAdmin):
     list_display = ['student', 'year', 'grade', 'part', 'soura']
+    search_fields = ['student__name', 'student__national_id']
     list_filter = ['part', 'year']
 
 class SouraAdmin(admin.ModelAdmin):

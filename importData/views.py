@@ -1,29 +1,51 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from .models import Soura
 from .models import Part
 from .models import Year
 from .models import Student
 from .models import Grade
-from openpyxl import load_workbook
+from openpyxl import Workbook
 
 # Create your views here.
 
 def importData(request):
-    
+    # Fetch data from the database
+    # data = Student.objects.all()
+
+    # # Create a new Excel workbook
+    # wb = Workbook()
+    # ws = wb.active
+
+    # # Add column headers
+    # ws.append(['الاسم', 'الرقم القومي', 'التليفون', 'المقرر', 'الاحكام'])  # Replace with actual column names
+
+    # # Add data rows
+    # for row in data:
+    #     ws.append([row.name, row.national_id, row.phone, row.next_amount.title, row.ahkam])  # Replace field1, field2, field3 with actual field names
+
+    # # Create the response
+    # response = HttpResponse(content_type='application/ms-excel')
+    # response['Content-Disposition'] = 'attachment; filename="data.xlsx"'
+
+    # # Save the workbook to the response
+    # wb.save(response)
+
+    # return response
     items = []
 
-    grades = Grade.objects.all()
-    for grade in grades:
-        if grade.student.national_id == '30310012209588' or grade.student.national_id == '30005012202485':
-            item = [] 
-            item.append(grade.student.name)
-            item.append(grade.part.title)
-            item.append(grade.soura.title)
-            if (int(grade.part.number) <= 15 and int(grade.soura.number) >= 18) or (int(grade.part.number) > 15 and int(grade.soura.number) < 18):
-                item.append('من سورة الناس الي سورة ' + grade.soura.title)
-            else:
-                item.append('من سورة الفاتحة الي سورة ' + grade.soura.title)
-            items.append(item)
+    # grades = Grade.objects.all()
+    # for grade in grades:
+    #     if grade.student.national_id == '30310012209588' or grade.student.national_id == '30005012202485':
+    #         item = [] 
+    #         item.append(grade.student.name)
+    #         item.append(grade.part.title)
+    #         item.append(grade.soura.title)
+    #         if (int(grade.part.number) <= 15 and int(grade.soura.number) >= 18) or (int(grade.part.number) > 15 and int(grade.soura.number) < 18):
+    #             item.append('من سورة الناس الي سورة ' + grade.soura.title)
+    #         else:
+    #             item.append('من سورة الفاتحة الي سورة ' + grade.soura.title)
+    #         items.append(item)
 
     # grades = Grade.objects.all()
     # for grade in grades:
