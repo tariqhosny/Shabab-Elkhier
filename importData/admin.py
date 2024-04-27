@@ -9,19 +9,27 @@ from .models import Grade
 class StudentAdmin(admin.ModelAdmin):
     list_display = ['name', 'national_id', 'phone', 'next_amount', 'ahkam']
     search_fields = ['name', 'national_id']
-    list_filter = ['next_amount']
+    list_filter = ['next_amount', 'ahkam']
 
 class GradeAdmin(admin.ModelAdmin):
-    list_display = ['student', 'year', 'grade', 'part', 'soura']
+    def student_national_id(self, obj):
+        return obj.student.national_id if obj.student else None
+    student_national_id.short_description = 'National Id'
+
+    list_display = ['student', 'student_national_id', 'year', 'grade', 'part', 'soura', 'from_baqra']
     search_fields = ['student__name', 'student__national_id']
-    list_filter = ['part', 'year']
+    list_filter = ['part', 'year', 'from_baqra']
 
 class SouraAdmin(admin.ModelAdmin):
     list_display = ['title', 'number']
     search_fields = ['title', 'number']
 
 class PartAdmin(admin.ModelAdmin):
-    list_display = ['title', 'number']
+    def part_soura(self, obj):
+        return '  -   '.join(str(Soura) for Soura in obj.soura.all())
+    part_soura.short_description = 'Soura'  # Optional: Customize column header
+
+    list_display = ['title', 'number', 'part_soura']
     search_fields = ['title', 'number']
 
 class YearAdmin(admin.ModelAdmin):
