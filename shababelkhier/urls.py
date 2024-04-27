@@ -20,6 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin_tariq/', admin.site.urls),
     path('', include('landing.urls')),
-    # path('submit/', include('submitStudent.urls')),
     # path('', include('importData.urls')),
 ]
