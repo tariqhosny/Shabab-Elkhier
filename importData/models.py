@@ -11,8 +11,8 @@ class Soura(models.Model):
 
 class Part(models.Model):
     title = models.CharField(max_length=100)
-    number = models.IntegerField(max_length=2)
-    soura = models.ManyToManyField(Soura, null=True)
+    number = models.IntegerField()
+    soura = models.ManyToManyField(Soura)
 
     def __str__(self) -> str:
         return self.title
@@ -27,9 +27,9 @@ class Year(models.Model):
 class Student(models.Model):
     name = models.CharField(max_length=100)
     national_id = models.CharField(max_length=20)
-    phone = models.CharField(max_length=20, null=True)
-    next_amount = models.ForeignKey(Part, on_delete=models.PROTECT, null=True)
-    ahkam = models.CharField(max_length=100, null=True)
+    phone = models.CharField(max_length=20, null=True, blank=True)
+    next_amount = models.ForeignKey(Part, on_delete=models.PROTECT)
+    ahkam = models.CharField(max_length=100)
     active = models.BooleanField(default=True)
     isFinished = models.BooleanField(default=False)
 
@@ -37,7 +37,7 @@ class Student(models.Model):
         ordering = ['name']
 
     def __str__(self) -> str:
-        return self.name
+        return self.name 
 
 class Grade(models.Model):
     grade = models.CharField(max_length=100)
@@ -45,6 +45,7 @@ class Grade(models.Model):
     year = models.ForeignKey(Year, on_delete=models.PROTECT)
     part = models.ForeignKey(Part, on_delete=models.PROTECT)
     soura = models.ForeignKey(Soura, null=True, on_delete=models.PROTECT, related_name='student_soura')
+    from_baqra = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['student']

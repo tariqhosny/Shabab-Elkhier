@@ -12,7 +12,7 @@ from openpyxl import Workbook
 def importData(request):
     # Fetch data from the database
     # data = Student.objects.all()
-
+    items = []
     # # Create a new Excel workbook
     # wb = Workbook()
     # ws = wb.active
@@ -32,7 +32,6 @@ def importData(request):
     # wb.save(response)
 
     # return response
-    items = []
 
     # grades = Grade.objects.all()
     # for grade in grades:
