@@ -19,8 +19,8 @@
                 </div>
               </div>
               <form method="POST" action="#" class="contact-form">
+                {% csrf_token %}
                 <div class="row">
-                  {% csrf_token %}
                   {{ form }}
                 </div>
                 <div class="row">
