@@ -9,6 +9,7 @@ from importData.models import Grade, Student
 def landing(request):
     return render(request, 'landing/landing.html')
 
+@csrf_protect
 def results(request):
     form = {'form': GetResultsForm}
     form['grades'] = []
