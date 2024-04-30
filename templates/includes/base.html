@@ -97,6 +97,12 @@
         overlayLeft.classList.remove("open");
         });
 
+        function enableDisabledInputs() {
+            var inputs = document.querySelectorAll('input[disabled]');
+            inputs.forEach(function(input) {
+                input.disabled = false;
+            });
+        }
     </script>
     </body>
 </html>
