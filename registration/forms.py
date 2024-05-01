@@ -1,4 +1,5 @@
 from django import forms
+from importData.models import Soura, Part
 from .models import NewStudent
 
 class NationalIDForm(forms.Form):
@@ -17,3 +18,11 @@ class SubmitNewStudentForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['part'].label = "عدد الاجزاء"
         self.fields['soura'].label = 'السورة'
+        self.fields['part'].widget.attrs.update({'id':'part', 'name':'part'})
+        self.fields['soura'].widget.attrs.update({'id':'soura', 'name':'soura'})
+        self.fields['soura'].queryset = Soura.objects.none()
+
+        if 'part' in self.data:
+            part_id = int(self.data.get('part'))
+            part = Part.objects.get(pk=part_id)
+            self.fields["soura"].queryset = part.soura.all()

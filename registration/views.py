@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render
-from importData.models import Student
-from .models import NewStudent
+from django.http import JsonResponse
+from importData.models import Student, Part
 from .forms import NationalIDForm, SubmitNewStudentForm
 
 # Create your views here.
@@ -36,3 +36,10 @@ def registration(request):
         form['nationalID'] = None
         form['student'] = None
     return render(request, 'registration/registration-form.html', form)
+
+def loadSoura(request):
+    part_id = request.GET.get('part')
+    part = Part.objects.get(pk=part_id)
+    souras = part.soura.values('id', 'title')
+    data = [{'id': soura['id'], 'name': soura['title']} for soura in souras]
+    return JsonResponse(data, safe=False)

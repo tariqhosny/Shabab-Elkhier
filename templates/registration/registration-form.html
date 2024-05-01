@@ -67,7 +67,7 @@
           {% if hideNationalID == True %}
           <div class="col-xl-8 center-horizontal">
             <div class="contact-form-wrapper">
-              <form method="post" class="row g-3" onsubmit="enableDisabledInputs()" novalidate>
+              <form method="post" class="row g-3" onsubmit="enableDisabledInputs()" id="submitStudent" data-soura-url="{% url 'ajax_load_soura' %}" novalidate>
                 {% csrf_token %}
                 {% include 'includes/form.html' %}
                 <div class="col-12">
@@ -81,38 +81,51 @@
           {% endif %}
         </div>
       </section>
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      <script>
+        $("#part").change(function () {
+          var url = $("#submitStudent").attr("data-soura-url");  // get the url of the `load_cities` view
+          var part = $(this).val();  // get the selected country ID from the HTML input
+
+          $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+              'part': part       // add the country id to the GET parameters
+            },
+            dataType: 'json',
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+              //$("#soura").html(data);  // replace the contents of the city input with the data that came from the server
+              $('#soura').empty();
+              $.each(data, function(index, item) {
+                  $('#soura').append($('<option>', {
+                      value: item.id,
+                      text: item.name
+                  }));
+              });
+            }
+          });
+        });
+        $(document).ready(function() {
+          $('submitStudent').submit(function(event) {
+              // Reload options for select inputs before form submission
+              $('select').each(function() {
+                  var select = $(this);
+                  var optionsUrl = select.data('data-soura-url'); // Assuming options are loaded from a URL
+                  $.get(optionsUrl, function(data) {
+                      select.empty();
+                      $.each(data, function(index, option) {
+                          select.append($('<option>', {
+                              value: option.value,
+                              text: option.text
+                          }));
+                      });
+                  });
+              });
+          });
+      });
+      </script>
     </body>
   </html>
+
 {% endblock %}
 
-                {% comment %} <div class="row">{{ submitForm.as_ul }}</div> {% endcomment %}
-                {% comment %} <div class="col-md-6">
-                  <label for="validationCustom01" class="form-label">الاسم بالكامل</label>
-                  <input type="text" class="form-control" id="validationCustom01" value="{{ student.name }}" required />
-                  <div class="valid-feedback">Looks good!</div>
-                </div>
-                <div class="col-md-6">
-                  <label for="validationCustom02" class="form-label">رقم التليفون</label>
-                  <input type="text" class="form-control" id="validationCustom02" value="{{ student.phone }}" required />
-                </div>
-                <div class="col-md-6">
-                  <label for="validationCustom04" class="form-label">عدد الاجزاء</label>
-                  <select class="form-select" id="validationCustom04" required>
-                    <option selected disabled value="">اختر...</option>
-                    <option>...</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label for="validationCustom04" class="form-label">السورة</label>
-                  <select class="form-select" id="validationCustom04" required>
-                    <option selected disabled value="">اختر...</option>
-                    <option>...</option>
-                  </select>
-                </div>
-                <div class="col-12">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required />
-                    <label class="form-check-label" for="invalidCheck">Agree to terms and conditions</label>
-                    <div class="invalid-feedback">You must agree before submitting.</div>
-                  </div>
-                </div> {% endcomment %}
