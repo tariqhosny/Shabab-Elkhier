@@ -9,6 +9,9 @@
         <!-- Start header Area -->
         <section id="hero-area" class="background header-area header-eight">
             <div class="container">
+                {% if success != None %}
+                    {% include 'landing/registration-form-success.html' %}
+                {% else %}
                 <h1 style="text-align:center; color:white">مسابقة شباب الخير بالبرقي</h1>
                 <br>
                 <div class="row align-items-center">
@@ -34,6 +37,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </section>
     {% comment %} </div> {% endcomment %}

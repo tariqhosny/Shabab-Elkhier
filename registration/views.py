@@ -1,5 +1,6 @@
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render
+from django.shortcuts import HttpResponseRedirect
 from django.http import JsonResponse
 from importData.models import Student, Part, Soura
 from .forms import NationalIDForm, SubmitNewStudentForm
@@ -13,7 +14,6 @@ form['min_amount'] = None
 
 @csrf_protect
 def registration(request):
-    print(form['min_amount'])
     if request.method == "POST":
         if 'nationalIDForm' in request.POST:
             national_id = request.POST.get('nationalID')
@@ -34,6 +34,8 @@ def registration(request):
             form['form'] = submitForm
             if submitForm.is_valid():
                 submitForm.save()
+                form['form'] = SubmitNewStudentForm()
+                return HttpResponseRedirect("/?sucessSubmit=1")
     elif request.method == 'GET':
         form['hideNationalID'] = False
         form['nationalID'] = None

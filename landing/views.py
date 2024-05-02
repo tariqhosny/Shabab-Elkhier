@@ -7,6 +7,12 @@ from importData.models import Grade, Student
 
 @csrf_protect
 def landing(request):
+    try:
+        success = request.GET.get('sucessSubmit')
+        print(success)
+        return render(request, 'landing/landing.html', {'success': success})
+    except:
+        print('error')
     return render(request, 'landing/landing.html')
 
 @csrf_protect

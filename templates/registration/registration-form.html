@@ -9,12 +9,16 @@
       <!-- ========================= contact-section start ========================= -->
       <section id="contact" class="contact-section background">
         <div class="container">
-          {% include 'registration/registration-form-nationalID.html' %}
-          {% if student != None %}
-          {% include 'registration/registration-form-student-info.html' %}
-          {% endif %}
-          {% if hideNationalID == True %}
-          {% include 'registration/registration-submit-form.html' %}
+          {% if sucessSubmit == True %}
+            {% include 'registration/registration-form-success.html' %}
+          {% else %}
+            {% include 'registration/registration-form-nationalID.html' %}
+            {% if student != None %}
+            {% include 'registration/registration-form-student-info.html' %}
+            {% endif %}
+            {% if hideNationalID == True %}
+            {% include 'registration/registration-submit-form.html' %}
+            {% endif %}
           {% endif %}
         </div>
       </section>
