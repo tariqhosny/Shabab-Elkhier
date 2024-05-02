@@ -21,7 +21,7 @@ class SubmitNewStudentForm(forms.ModelForm):
         
         parts = Part.objects.all()
         if min_amount is not None:
-            parts = Part.objects.filter(number__gt=(min_amount-1))
+            parts = Part.objects.filter(number__gte=(min_amount))
 
         if student_id is not None:
             newStudent = NewStudent.objects.get(id = student_id)
