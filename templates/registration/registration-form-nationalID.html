@@ -1,0 +1,36 @@
+{% load static%}
+<div class="col-xl-8 center-horizontal">
+    <div class="contact-form-wrapper">
+      <div class="row">
+        <div class="col-xl-10 col-lg-8 mx-auto">
+          <div class="section-title text-center">
+            <h2>مسابقة شباب الخير بالبرقي</h2>
+          </div>
+        </div>
+      </div>
+        {% if hideNationalID == False %}
+            <h5 class="text-center">للتسجيل في مسابقة شباب الخير بالبرقي لعام ٢٠٢٤م/١٤٤٥ه الرجاء ادخال الرقم القومي</h5>
+            <br>
+            <form method="POST" action="#" class="contact-form">
+            {% csrf_token %}
+            <div class="row">{{ nationalIDForm }}</div>
+            <div class="row">
+                <div class="col-12">
+                <div class="button text-center rounded-buttons">
+                    <button type="submit" name="nationalIDForm" class="btn primary-btn rounded-full">التالي</button>
+                </div>
+                </div>
+            </div>
+            </form>
+        {% else %}
+            <h5 class="text-center">الرجاء التأكد من ان جميع البيانات صحيحة وفي حالة حدوث مشكلة الرجاء المحاولة مرة اخري او التواصل علي الوتس من خلال الضغط هنا:</h5>
+            <br>
+            <div class="button text-center rounded-buttons">
+                <a class="btn primary-btn rounded-full" target="_blank" href="https://wa.me/201098831979">
+                    <img src="{% static 'image/whatsapp.png' %}" alt="Logo" width="22" height="22" class="d-inline-block align-text-center" style="margin-left:5px;">
+                    تواصل معنا
+                </a>
+            </div>
+        {% endif %}
+    </div>
+  </div>

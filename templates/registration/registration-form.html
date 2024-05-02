@@ -9,106 +9,16 @@
       <!-- ========================= contact-section start ========================= -->
       <section id="contact" class="contact-section background">
         <div class="container">
-          <div class="col-xl-8 center-horizontal">
-            <div class="contact-form-wrapper">
-              <div class="row">
-                <div class="col-xl-10 col-lg-8 mx-auto">
-                  <div class="section-title text-center">
-                    <h2>مسابقة شباب الخير بالبرقي</h2>
-                    <p>للتسجيل في مسابقة شباب الخير بالبرقي لعام ٢٠٢٤م/١٤٤٥ه الرجاء ادخال الرقم القومي</p>
-                  </div>
-                </div>
-              </div>
-              {% if hideNationalID == False %}
-                <form method="POST" action="#" class="contact-form">
-                  {% csrf_token %}
-                  <div class="row">{{ nationalIDForm }}</div>
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="button text-center rounded-buttons">
-                        <button type="submit" name="nationalIDForm" class="btn primary-btn rounded-full">التالي</button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              {% endif %}
-            </div>
-          </div>
+          {% include 'registration/registration-form-nationalID.html' %}
           {% if student != None %}
-            <div class="col-xl-8 center-horizontal">
-              <div class="pricing-style-fourteen">
-                <table class="table table-bordered">
-                  <tbody>
-                    <tr>
-                      <th scope="row">الاسم</th>
-                      <td>{{ student.name }}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">الحد الادني للمسابقة القادمة</th>
-                      {% if student.isFinished == True %}
-                        <td>{{ student.next_amount.title }} (للتقييم فقط)</td>
-                      {% elif student.next_amount.number == '30' %}
-                        <td>{{ student.next_amount.title }}</td>
-                      {% else %}
-                        <td>{{ student.next_amount.number }} جزء</td>
-                      {% endif %}
-                    </tr>
-                    <tr>
-                      <th scope="row">المقرر من الاحكام</th>
-                      <td>{{ student.ahkam }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          {% include 'registration/registration-form-student-info.html' %}
           {% endif %}
           {% if hideNationalID == True %}
-            <div class="col-xl-8 center-horizontal">
-              <div class="contact-form-wrapper">
-                <form method="post" class="row g-3" onsubmit="enableDisabledInputs()" id="submitStudent" data-soura-url="{% url 'ajax_load_soura' %}" novalidate>
-                  {% csrf_token %}
-                  {% include 'includes/form.html' %}
-                  <div class="col-12">
-                    <div class="button text-center rounded-buttons">
-                      <button type="submit" name="submitForm" class="btn primary-btn rounded-full">تسجيل الطالب</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
+          {% include 'registration/registration-submit-form.html' %}
           {% endif %}
         </div>
       </section>
-      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-      <script>
-        $('#part').change(function () {
-          var url = $('#submitStudent').attr('data-soura-url')
-          var part = $(this).val()
-        
-          $.ajax({
-            url: url,
-            data: {
-              part: part
-            },
-            dataType: 'json',
-            success: function (data) {
-              $('#soura').empty()
-              $('#soura').append($('<option>', {
-                value: '',
-                text: '---------'
-            }));
-              $.each(data, function (index, item) {
-                $('#soura').append(
-                  $('<option>', {
-                    value: item.id,
-                    text: item.name
-                  })
-                )
-              })
-            }
-          })
-        })
-      </script>
+      {% include 'registration/registration-form-js.html' %}
     </body>
   </html>
 {% endblock %}

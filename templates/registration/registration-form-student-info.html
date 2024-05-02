@@ -1,0 +1,26 @@
+<div class="col-xl-8 center-horizontal">
+    <div class="pricing-style-fourteen">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th scope="row">الاسم</th>
+            <td>{{ student.name }}</td>
+          </tr>
+          <tr>
+            <th scope="row">الحد الادني للمسابقة القادمة</th>
+            {% if student.isFinished == True %}
+              <td>{{ student.next_amount.title }} (للتقييم فقط)</td>
+            {% elif student.next_amount.number == '30' %}
+              <td>{{ student.next_amount.title }}</td>
+            {% else %}
+              <td>{{ student.next_amount.number }} جزء</td>
+            {% endif %}
+          </tr>
+          <tr>
+            <th scope="row">المقرر من الاحكام</th>
+            <td>{{ student.ahkam }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
