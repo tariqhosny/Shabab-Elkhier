@@ -16,10 +16,20 @@ class SubmitNewStudentForm(forms.ModelForm):
         fields = ['national_id', 'name', 'phone', 'part', 'soura', 'checkbox']
     
     def __init__(self, *args, **kwargs):
+        student_id = kwargs.pop('student_id', None)
         min_amount = kwargs.pop('min_amount', None)
+        
         parts = Part.objects.all()
         if min_amount is not None:
             parts = Part.objects.filter(number__gt=(min_amount-1))
+
+        if student_id is not None:
+            newStudent = NewStudent.objects.get(id = student_id)
+            name = newStudent.name
+            phone = newStudent.phone
+            part = newStudent.part
+            soura = newStudent.soura
+            print(soura)
         super().__init__(*args, **kwargs)
 
         self.fields['part'].label = "عدد الاجزاء"
@@ -28,6 +38,14 @@ class SubmitNewStudentForm(forms.ModelForm):
         self.fields['soura'].widget.attrs.update({'id':'soura', 'name':'soura'})
         self.fields['soura'].queryset = Soura.objects.none()
         self.fields['part'].queryset = parts
+
+        if student_id is not None:
+            self.fields["soura"].queryset = part.soura.all()
+
+            self.fields['name'].initial = name
+            self.fields['phone'].initial = phone
+            self.fields['part'].initial = part
+            self.fields['soura'].initial = soura
 
         self.fields['name'].error_messages = {
             'required': 'لازم تدخل الاسم',
@@ -48,7 +66,7 @@ class SubmitNewStudentForm(forms.ModelForm):
         if 'part' in self.data:
             try:
                 part_id = int(self.data.get('part'))
-                part = Part.objects.get(pk=part_id)
-                self.fields["soura"].queryset = part.soura.all()
+                part_obj = Part.objects.get(pk=part_id)
+                self.fields["soura"].queryset = part_obj.soura.all()
             except:
                 print('error')

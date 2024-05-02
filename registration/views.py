@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import HttpResponseRedirect
 from django.http import JsonResponse
 from importData.models import Student, Part, Soura
+from .models import NewStudent
 from .forms import NationalIDForm, SubmitNewStudentForm
 
 # Create your views here.
@@ -20,20 +21,30 @@ def registration(request):
             form['hideNationalID'] = True
             form['nationalID'] = national_id
             if national_id != None:
-                try:
+                newStudent = NewStudent.objects.filter(national_id = national_id).first()
+                if newStudent is None:
+                    try:
+                        student = Student.objects.get(national_id = national_id)
+                        form['min_amount'] = student.next_amount.number
+                        form['student'] = student
+                        form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID'], 'name': student.name, 'phone': student.phone}, min_amount=form['min_amount'])
+                    except:
+                        form['student'] = None
+                        form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID']})
+                else:
                     student = Student.objects.get(national_id = national_id)
                     form['min_amount'] = student.next_amount.number
                     form['student'] = student
-                    form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID'], 'name': student.name, 'phone': student.phone}, min_amount=form['min_amount'])
-                except:
-                    form['student'] = None
-                    form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID']})
+                    form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID'], 'name': student.name, 'phone': student.phone}, min_amount=form['min_amount'], student_id=newStudent.id)
         elif 'submitForm' in request.POST:
             form['hideNationalID'] = True
-            submitForm = SubmitNewStudentForm(request.POST, min_amount=form['min_amount'])
-            form['form'] = submitForm
-            if submitForm.is_valid():
-                submitForm.save()
+            newStudent = NewStudent.objects.filter(national_id = form['nationalID']).first()
+            if newStudent is None:
+                form['form'] = SubmitNewStudentForm(request.POST, min_amount=form['min_amount'])
+            else:
+                form['form'] = SubmitNewStudentForm(request.POST, min_amount=form['min_amount'], instance=newStudent)
+            if form['form'].is_valid():
+                form['form'].instance.save()
                 form['form'] = SubmitNewStudentForm()
                 return HttpResponseRedirect("/?sucessSubmit=1")
     elif request.method == 'GET':
@@ -53,7 +64,6 @@ def loadSoura(request):
                 data.append({'id': soura['id'], 'name': 'من سورة الناس الي سورة ' + soura['title']})
             else:
                 data.append({'id': soura['id'], 'name': 'من سورة البقرة الي سورة ' + soura['title']})
-
     except:
         souras = Soura.objects.none()
         data = [{'id': soura['id'], 'name': soura['title']} for soura in souras]
