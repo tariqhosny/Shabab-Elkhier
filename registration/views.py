@@ -41,16 +41,18 @@ def registration(request):
     return render(request, 'registration/registration-form.html', form)
 
 def loadSoura(request):
+    data = []
     try:
         part_id = request.GET.get('part')
         part = Part.objects.get(pk=part_id)
-        souras = part.soura.values('id', 'title')
+        souras = part.soura.values('id', 'title', 'number')
+        for soura in souras:
+            if (int(part.number) <= 15 and int(soura['number']) >= 18) or (int(part.number) > 15 and int(soura['number']) < 18):
+                data.append({'id': soura['id'], 'name': 'من سورة الناس الي سورة ' + soura['title']})
+            else:
+                data.append({'id': soura['id'], 'name': 'من سورة البقرة الي سورة ' + soura['title']})
+
     except:
         souras = Soura.objects.none()
-    # if part_id is None:
-    #     souras = Soura.objects.none
-    # else:
-    #     part = Part.objects.get(pk=part_id)
-    #     souras = part.soura.values('id', 'title')
-    data = [{'id': soura['id'], 'name': soura['title']} for soura in souras]
+        data = [{'id': soura['id'], 'name': soura['title']} for soura in souras]
     return JsonResponse(data, safe=False)
