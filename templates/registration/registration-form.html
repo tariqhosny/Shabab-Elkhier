@@ -20,112 +20,95 @@
                 </div>
               </div>
               {% if hideNationalID == False %}
-              <form method="POST" action="#" class="contact-form">
-                {% csrf_token %}
-                <div class="row">
-                  {{ nationalIDForm }}
-                </div>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="button text-center rounded-buttons">
-                      <button type="submit" name="nationalIDForm" class="btn primary-btn rounded-full">التالي</button>
+                <form method="POST" action="#" class="contact-form">
+                  {% csrf_token %}
+                  <div class="row">{{ nationalIDForm }}</div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="button text-center rounded-buttons">
+                        <button type="submit" name="nationalIDForm" class="btn primary-btn rounded-full">التالي</button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </form>
+                </form>
               {% endif %}
             </div>
           </div>
           {% if student != None %}
-              <div class="col-xl-8 center-horizontal">
-                <div class="pricing-style-fourteen">
-                  <table class="table table-bordered">
-                    <tbody>
-                      <tr>
-                        <th scope="row">الاسم</th>
-                        <td>{{ student.name }}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">الحد الادني للمسابقة القادمة</th>
-                        {% if student.isFinished == True %}
-                          <td>{{ student.next_amount.title }} (للتقييم فقط)</td>
-                        {% elif student.next_amount.number == '30' %}
-                          <td>{{ student.next_amount.title }}</td>
-                        {% else %}
-                          <td>{{ student.next_amount.number }} جزء</td>
-                        {% endif %}
-                      </tr>
-                      <tr>
-                        <th scope="row">المقرر من الاحكام</th>
-                        <td>{{ student.ahkam }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+            <div class="col-xl-8 center-horizontal">
+              <div class="pricing-style-fourteen">
+                <table class="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <th scope="row">الاسم</th>
+                      <td>{{ student.name }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">الحد الادني للمسابقة القادمة</th>
+                      {% if student.isFinished == True %}
+                        <td>{{ student.next_amount.title }} (للتقييم فقط)</td>
+                      {% elif student.next_amount.number == '30' %}
+                        <td>{{ student.next_amount.title }}</td>
+                      {% else %}
+                        <td>{{ student.next_amount.number }} جزء</td>
+                      {% endif %}
+                    </tr>
+                    <tr>
+                      <th scope="row">المقرر من الاحكام</th>
+                      <td>{{ student.ahkam }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
+            </div>
           {% endif %}
           {% if hideNationalID == True %}
-          <div class="col-xl-8 center-horizontal">
-            <div class="contact-form-wrapper">
-              <form method="post" class="row g-3" onsubmit="enableDisabledInputs()" id="submitStudent" data-soura-url="{% url 'ajax_load_soura' %}" novalidate>
-                {% csrf_token %}
-                {% include 'includes/form.html' %}
-                <div class="col-12">
-                  <div class="button text-center rounded-buttons">
-                    <button type="submit" name="submitForm" class="btn primary-btn rounded-full">تسجيل الطالب</button>
+            <div class="col-xl-8 center-horizontal">
+              <div class="contact-form-wrapper">
+                <form method="post" class="row g-3" onsubmit="enableDisabledInputs()" id="submitStudent" data-soura-url="{% url 'ajax_load_soura' %}" novalidate>
+                  {% csrf_token %}
+                  {% include 'includes/form.html' %}
+                  <div class="col-12">
+                    <div class="button text-center rounded-buttons">
+                      <button type="submit" name="submitForm" class="btn primary-btn rounded-full">تسجيل الطالب</button>
+                    </div>
                   </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
-          </div>
           {% endif %}
         </div>
       </section>
       <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
       <script>
-        $("#part").change(function () {
-          var url = $("#submitStudent").attr("data-soura-url");  // get the url of the `load_cities` view
-          var part = $(this).val();  // get the selected country ID from the HTML input
-
-          $.ajax({                       // initialize an AJAX request
-            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        $('#part').change(function () {
+          var url = $('#submitStudent').attr('data-soura-url')
+          var part = $(this).val()
+        
+          $.ajax({
+            url: url,
             data: {
-              'part': part       // add the country id to the GET parameters
+              part: part
             },
             dataType: 'json',
-            success: function (data) {   // `data` is the return of the `load_cities` view function
-              //$("#soura").html(data);  // replace the contents of the city input with the data that came from the server
-              $('#soura').empty();
-              $.each(data, function(index, item) {
-                  $('#soura').append($('<option>', {
-                      value: item.id,
-                      text: item.name
-                  }));
-              });
+            success: function (data) {
+              $('#soura').empty()
+              $('#soura').append($('<option>', {
+                value: '',
+                text: '---------'
+            }));
+              $.each(data, function (index, item) {
+                $('#soura').append(
+                  $('<option>', {
+                    value: item.id,
+                    text: item.name
+                  })
+                )
+              })
             }
-          });
-        });
-        $(document).ready(function() {
-          $('submitStudent').submit(function(event) {
-              // Reload options for select inputs before form submission
-              $('select').each(function() {
-                  var select = $(this);
-                  var optionsUrl = select.data('data-soura-url'); // Assuming options are loaded from a URL
-                  $.get(optionsUrl, function(data) {
-                      select.empty();
-                      $.each(data, function(index, option) {
-                          select.append($('<option>', {
-                              value: option.value,
-                              text: option.text
-                          }));
-                      });
-                  });
-              });
-          });
-      });
+          })
+        })
       </script>
     </body>
   </html>
-
 {% endblock %}
-
