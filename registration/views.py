@@ -32,10 +32,15 @@ def registration(request):
                         form['student'] = None
                         form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID']})
                 else:
-                    student = Student.objects.get(national_id = national_id)
-                    form['min_amount'] = student.next_amount.number
-                    form['student'] = student
-                    form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID'], 'name': student.name, 'phone': student.phone}, min_amount=form['min_amount'], student_id=newStudent.id)
+                    try:
+                        student = Student.objects.get(national_id = national_id)
+                        form['min_amount'] = student.next_amount.number
+                        form['student'] = student
+                        form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID'], 'name': student.name, 'phone': student.phone}, min_amount=form['min_amount'], student_id=newStudent.id)
+                    except:
+                        form['min_amount'] = 0
+                        form['student'] = None
+                        form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID']}, min_amount=form['min_amount'], student_id=newStudent.id)        
         elif 'submitForm' in request.POST:
             form['hideNationalID'] = True
             newStudent = NewStudent.objects.filter(national_id = form['nationalID']).first()
