@@ -1,5 +1,7 @@
 <div class="col-xl-8 center-horizontal">
     <div class="contact-form-wrapper">
+      <h3 class="text-center">نوزج تقديم الطالب</h3>
+      <br>
       <form method="post" class="row g-3" onsubmit="enableDisabledInputs()" id="submitStudent" data-soura-url="{% url 'ajax_load_soura' %}" novalidate>
         {% csrf_token %}
         {% include 'includes/form.html' %}
