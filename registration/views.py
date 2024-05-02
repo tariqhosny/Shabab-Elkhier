@@ -41,12 +41,16 @@ def registration(request):
             newStudent = NewStudent.objects.filter(national_id = form['nationalID']).first()
             if newStudent is None:
                 form['form'] = SubmitNewStudentForm(request.POST, min_amount=form['min_amount'])
+                if form['form'].is_valid():
+                    form['form'].save()
+                    form['form'] = SubmitNewStudentForm()
+                    return HttpResponseRedirect("/?sucessSubmit=1")
             else:
                 form['form'] = SubmitNewStudentForm(request.POST, min_amount=form['min_amount'], instance=newStudent)
-            if form['form'].is_valid():
-                form['form'].instance.save()
-                form['form'] = SubmitNewStudentForm()
-                return HttpResponseRedirect("/?sucessSubmit=1")
+                if form['form'].is_valid():
+                    form['form'].instance.save()
+                    form['form'] = SubmitNewStudentForm()
+                    return HttpResponseRedirect("/?sucessSubmit=1")
     elif request.method == 'GET':
         form['hideNationalID'] = False
         form['nationalID'] = None
