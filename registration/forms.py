@@ -121,3 +121,9 @@ class SubmitNewStudentForm(forms.ModelForm):
                     raise forms.ValidationError("لازم الاسم بالكامل يكون اسم رباعي كما هو في شهادة الميلاد")
 
             return name
+    
+    def clean_phone(self):
+        data = self.cleaned_data['phone']
+        if not data.isdigit() or len(data) != 11:
+            raise forms.ValidationError('لازم ندخل رقم التليفون بشكل صحيح (01x xxx xxx xx)')
+        return data
