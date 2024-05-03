@@ -24,7 +24,7 @@ class NationalIDForm(forms.Form):
 class SubmitNewStudentForm(forms.ModelForm):
     national_id = forms.CharField(max_length=14, min_length=14, label="الرقم القومي", widget=forms.TextInput(attrs={'placeholder': 'ادخل الرقم القومي', 'disabled': True}))
     name = forms.CharField(max_length=100, label="الاسم بالكامل", widget=forms.TextInput(attrs={'placeholder': 'ادخل الاسم بالكامل'}))
-    phone = forms.CharField(max_length=11, min_length=10, label="رقم التليفون", widget=forms.TextInput(attrs={'placeholder': 'ادخل رقم التليفون'}))
+    phone = forms.CharField(max_length=11, min_length=11, label="رقم التليفون", widget=forms.TextInput(attrs={'placeholder': 'ادخل رقم التليفون'}))
     checkbox = forms.BooleanField(required=True, label = 'هل انت متأكل من السورة التي قمت باختيارها؟')
 
     class Meta:
@@ -78,6 +78,9 @@ class SubmitNewStudentForm(forms.ModelForm):
         }
         self.fields['phone'].error_messages = {
             'required': 'لازم تدخل رقم التليفون',
+            'invalid': 'لازم ندخل رقم التليفون بشكل صحيح (01x xxx xxx xx)',
+            'min_length': 'لازم ندخل رقم التليفون بشكل صحيح (01x xxx xxx xx)',
+            'min_length': 'لازم ندخل رقم التليفون بشكل صحيح (01x xxx xxx xx)',
         }
         self.fields['part'].error_messages = {
             'required': 'لازم تختار عدد الاجزاء',
@@ -105,3 +108,16 @@ class SubmitNewStudentForm(forms.ModelForm):
                 # self.fields['soura'].queryset = souras
             except:
                 self.fields['soura'].queryset = Soura.objects.none()
+
+    def clean_name(self):
+            full_name = self.cleaned_data.get('name')
+            names = full_name.split() if full_name else []
+
+            if len(names) != 4:
+                raise forms.ValidationError("لازم الاسم بالكامل يكون اسم رباعي كما هو في شهادة الميلاد")
+            
+            for name in names:
+                if len(name) != 3:
+                    raise forms.ValidationError("لازم الاسم بالكامل يكون اسم رباعي كما هو في شهادة الميلاد")
+
+            return name
