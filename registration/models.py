@@ -10,4 +10,4 @@ class NewStudent(models.Model):
     phone = models.CharField(max_length=20)
     part = models.ForeignKey(Part, on_delete=models.PROTECT)
     soura = models.ForeignKey(Soura, on_delete=models.PROTECT, related_name='new_student_soura')
-    new_student = models.BooleanField(default=False)
+    first_time = models.BooleanField(default=False)

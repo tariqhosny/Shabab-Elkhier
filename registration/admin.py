@@ -3,8 +3,8 @@ from .models import NewStudent
 
 # Register your models here.
 class NewStudentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'national_id', 'phone', 'part', 'soura', 'new_student']
+    list_display = ['name', 'national_id', 'phone', 'part', 'soura', 'first_time']
     search_fields = ['name', 'national_id']
-    list_filter = ['part', 'soura']
+    list_filter = ['part']
     
 admin.site.register(NewStudent, NewStudentAdmin)

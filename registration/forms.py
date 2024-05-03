@@ -27,6 +27,7 @@ class SubmitNewStudentForm(forms.ModelForm):
 
         if student_id is not None:
             newStudent = NewStudent.objects.get(id = student_id)
+            national_id = newStudent.national_id
             name = newStudent.name
             phone = newStudent.phone
             part = newStudent.part
@@ -44,6 +45,7 @@ class SubmitNewStudentForm(forms.ModelForm):
         if student_id is not None:
             self.fields["soura"].queryset = part.soura.all()
 
+            self.fields['national_id'].initial = national_id
             self.fields['name'].initial = name
             self.fields['phone'].initial = phone
             self.fields['part'].initial = part
@@ -70,5 +72,14 @@ class SubmitNewStudentForm(forms.ModelForm):
                 part_id = int(self.data.get('part'))
                 part_obj = Part.objects.get(pk=part_id)
                 self.fields["soura"].queryset = part_obj.soura.all()
+
+                # souras = part_obj.soura.all()
+                # for soura in souras:
+                #     if (int(part_obj.number) <= 15 and int(soura.number) >= 18) or (int(part_obj.number) > 15 and int(soura.number) < 18):
+                #         soura.title = 'من سورة الناس الي سورة ' + soura.title
+                #     else:
+                #         soura.title = 'من سورة البقرة الي سورة ' + soura.title
+                # print(part_obj.soura.all())
+                # self.fields['soura'].queryset = souras
             except:
                 self.fields['soura'].queryset = Soura.objects.none()
