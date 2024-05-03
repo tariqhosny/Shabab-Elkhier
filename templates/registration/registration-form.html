@@ -10,9 +10,6 @@
       <section id="contact" class="contact-section background">
         <br>
         <div class="container">
-          {% if sucessSubmit == True %}
-            {% include 'registration/registration-form-success.html' %}
-          {% else %}
             {% include 'registration/registration-form-nationalID.html' %}
             {% if student != None %}
             {% include 'registration/registration-form-student-info.html' %}
@@ -20,7 +17,6 @@
             {% if hideNationalID == True %}
             {% include 'registration/registration-submit-form.html' %}
             {% endif %}
-          {% endif %}
         </div>
       </section>
       {% include 'registration/registration-form-js.html' %}

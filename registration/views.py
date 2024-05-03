@@ -20,7 +20,7 @@ def registration(request):
         if 'nationalIDForm' in request.POST:
             form['nationalIDForm'] = NationalIDForm(request.POST)
             if form['nationalIDForm'].is_valid():
-                national_id = request.POST.get('nationalID')
+                national_id = arabic_to_english(request.POST.get('nationalID'))
                 form['hideNationalID'] = True
                 form['nationalID'] = national_id
                 if national_id != None:
@@ -52,6 +52,8 @@ def registration(request):
                 form['form'] = SubmitNewStudentForm(request.POST, min_amount=form['min_amount'])
                 if form['form'].is_valid():
                     submittedStudent = form['form'].save(commit=False)
+                    phone = arabic_to_english(form['form'].cleaned_data.get('phone'))
+                    submittedStudent.phone = phone
                     if form['student'] is None:
                         submittedStudent.first_time = True
                     else:
@@ -62,8 +64,11 @@ def registration(request):
             else:
                 form['form'] = SubmitNewStudentForm(request.POST, min_amount=form['min_amount'], instance=newStudent)
                 if form['form'].is_valid():
-                    form['form'].instance.save()
-                    form['form'] = SubmitNewStudentForm()
+                    submittedStudent = form['form'].save(commit=False)
+                    phone = arabic_to_english(form['form'].cleaned_data.get('phone'))
+                    submittedStudent.phone = phone
+                    submittedStudent.instance.save()
+                    submittedStudent = SubmitNewStudentForm()
                     return HttpResponseRedirect("/?sucessSubmit=1")
     elif request.method == 'GET':
         form['hideNationalID'] = False
@@ -86,3 +91,8 @@ def loadSoura(request):
         souras = Soura.objects.none()
         data = [{'id': soura['id'], 'name': soura['title']} for soura in souras]
     return JsonResponse(data, safe=False)
+
+def arabic_to_english(arabic_number):
+    arabic_numbers = '٠١٢٣٤٥٦٧٨٩'
+    english_numbers = '0123456789'
+    return arabic_number.translate(str.maketrans(arabic_numbers, english_numbers))

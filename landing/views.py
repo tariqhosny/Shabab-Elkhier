@@ -9,7 +9,6 @@ from importData.models import Grade, Student
 def landing(request):
     try:
         success = request.GET.get('sucessSubmit')
-        print(success)
         return render(request, 'landing/landing.html', {'success': success})
     except:
         print('error')
