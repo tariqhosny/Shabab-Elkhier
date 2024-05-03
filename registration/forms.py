@@ -22,6 +22,8 @@ class SubmitNewStudentForm(forms.ModelForm):
         parts = Part.objects.all()
         if min_amount is not None:
             parts = Part.objects.filter(number__gte=(min_amount))
+        else:
+            parts = Part.objects.all()
 
         if student_id is not None:
             newStudent = NewStudent.objects.get(id = student_id)
@@ -29,7 +31,7 @@ class SubmitNewStudentForm(forms.ModelForm):
             phone = newStudent.phone
             part = newStudent.part
             soura = newStudent.soura
-            print(soura)
+            
         super().__init__(*args, **kwargs)
 
         self.fields['part'].label = "عدد الاجزاء"
@@ -69,4 +71,4 @@ class SubmitNewStudentForm(forms.ModelForm):
                 part_obj = Part.objects.get(pk=part_id)
                 self.fields["soura"].queryset = part_obj.soura.all()
             except:
-                print('error')
+                self.fields['soura'].queryset = Soura.objects.none()

@@ -30,7 +30,7 @@ def registration(request):
                         form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID'], 'name': student.name, 'phone': student.phone}, min_amount=form['min_amount'])
                     except:
                         form['student'] = None
-                        form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID']})
+                        form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID']}, min_amount=form['min_amount'])
                 else:
                     try:
                         student = Student.objects.get(national_id = national_id)
@@ -47,8 +47,13 @@ def registration(request):
             if newStudent is None:
                 form['form'] = SubmitNewStudentForm(request.POST, min_amount=form['min_amount'])
                 if form['form'].is_valid():
-                    form['form'].save()
-                    form['form'] = SubmitNewStudentForm()
+                    submittedStudent = form['form'].save(commit=False)
+                    if form['student'] is None:
+                        submittedStudent.new_student = True
+                    else:
+                        submittedStudent.new_student = False
+                    submittedStudent.save()
+                    submittedStudent = SubmitNewStudentForm()
                     return HttpResponseRedirect("/?sucessSubmit=1")
             else:
                 form['form'] = SubmitNewStudentForm(request.POST, min_amount=form['min_amount'], instance=newStudent)
