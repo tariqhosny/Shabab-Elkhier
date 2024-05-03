@@ -120,7 +120,7 @@ class SubmitNewStudentForm(forms.ModelForm):
                 if len(name) < 3:
                     raise forms.ValidationError("لازم الاسم بالكامل يكون اسم رباعي كما هو في شهادة الميلاد")
 
-            return name
+            return full_name
     
     def clean_phone(self):
         data = self.cleaned_data['phone']
