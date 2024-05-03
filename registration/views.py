@@ -7,41 +7,44 @@ from .models import NewStudent
 from .forms import NationalIDForm, SubmitNewStudentForm
 
 # Create your views here.
-form = {'nationalIDForm': NationalIDForm}
-form['hideNationalID'] = False
+form = {'hideNationalID': False}
+# form['hideNationalID'] = False
 form['nationalID'] = None
 form['student'] = None
 form['min_amount'] = 1
 
 @csrf_protect
 def registration(request):
+    form['nationalIDForm'] = NationalIDForm()
     if request.method == "POST":
         if 'nationalIDForm' in request.POST:
-            national_id = request.POST.get('nationalID')
-            form['hideNationalID'] = True
-            form['nationalID'] = national_id
-            if national_id != None:
-                newStudent = NewStudent.objects.filter(national_id = national_id).first()
-                if newStudent is None:
-                    try:
-                        student = Student.objects.get(national_id = national_id)
-                        form['min_amount'] = student.next_amount.number
-                        form['student'] = student
-                        form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID'], 'name': student.name, 'phone': student.phone}, min_amount=form['min_amount'])
-                    except:
-                        form['min_amount'] = 1
-                        form['student'] = None
-                        form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID']}, min_amount=form['min_amount'])
-                else:
-                    try:
-                        student = Student.objects.get(national_id = national_id)
-                        form['min_amount'] = student.next_amount.number
-                        form['student'] = student
-                        form['form'] = SubmitNewStudentForm(min_amount=form['min_amount'], student_id=newStudent.id)
-                    except:
-                        form['min_amount'] = 1
-                        form['student'] = None
-                        form['form'] = SubmitNewStudentForm(min_amount=form['min_amount'], student_id=newStudent.id)        
+            form['nationalIDForm'] = NationalIDForm(request.POST)
+            if form['nationalIDForm'].is_valid():
+                national_id = request.POST.get('nationalID')
+                form['hideNationalID'] = True
+                form['nationalID'] = national_id
+                if national_id != None:
+                    newStudent = NewStudent.objects.filter(national_id = national_id).first()
+                    if newStudent is None:
+                        try:
+                            student = Student.objects.get(national_id = national_id)
+                            form['min_amount'] = student.next_amount.number
+                            form['student'] = student
+                            form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID'], 'name': student.name, 'phone': student.phone}, min_amount=form['min_amount'])
+                        except:
+                            form['min_amount'] = 1
+                            form['student'] = None
+                            form['form'] = SubmitNewStudentForm(initial={'national_id': form['nationalID']}, min_amount=form['min_amount'])
+                    else:
+                        try:
+                            student = Student.objects.get(national_id = national_id)
+                            form['min_amount'] = student.next_amount.number
+                            form['student'] = student
+                            form['form'] = SubmitNewStudentForm(min_amount=form['min_amount'], student_id=newStudent.id)
+                        except:
+                            form['min_amount'] = 1
+                            form['student'] = None
+                            form['form'] = SubmitNewStudentForm(min_amount=form['min_amount'], student_id=newStudent.id)        
         elif 'submitForm' in request.POST:
             form['hideNationalID'] = True
             newStudent = NewStudent.objects.filter(national_id = form['nationalID']).first()
