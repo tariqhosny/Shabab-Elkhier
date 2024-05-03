@@ -42,6 +42,12 @@ class SubmitNewStudentForm(forms.ModelForm):
         self.fields['soura'].queryset = Soura.objects.none()
         self.fields['part'].queryset = parts
 
+        if min_amount is not None:
+            if min_amount > 1:
+                self.fields['name'].widget.attrs.update({'disabled': True})
+            else:
+                self.fields['name'].widget.attrs.update({'disabled': False})
+
         if student_id is not None:
             self.fields["soura"].queryset = part.soura.all()
 
