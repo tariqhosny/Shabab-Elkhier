@@ -58,8 +58,8 @@ def registration(request):
                         submittedStudent.first_time = True
                     else:
                         submittedStudent.first_time = False
-                    submittedStudent.save()
-                    submittedStudent = SubmitNewStudentForm()
+                    form['form'].save()
+                    form['form'] = SubmitNewStudentForm()
                     return HttpResponseRedirect("/?sucessSubmit=1")
             else:
                 form['form'] = SubmitNewStudentForm(request.POST, min_amount=form['min_amount'], instance=newStudent)
@@ -67,8 +67,8 @@ def registration(request):
                     submittedStudent = form['form'].save(commit=False)
                     phone = arabic_to_english(form['form'].cleaned_data.get('phone'))
                     submittedStudent.phone = phone
-                    submittedStudent.instance.save()
-                    submittedStudent = SubmitNewStudentForm()
+                    form['form'].instance.save()
+                    form['form'] = SubmitNewStudentForm()
                     return HttpResponseRedirect("/?sucessSubmit=1")
     elif request.method == 'GET':
         form['hideNationalID'] = False
