@@ -1,4 +1,4 @@
-from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
+from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render, HttpResponseRedirect
 from django.http import JsonResponse
 from importData.models import Student, Part, Soura
@@ -13,7 +13,6 @@ form['student'] = None
 form['min_amount'] = 1
 
 @csrf_protect
-@ensure_csrf_cookie
 def registration(request):
     form['nationalIDForm'] = NationalIDForm()
     if request.method == "POST":
