@@ -13,8 +13,10 @@
 	<body>
 
 		<!-- Error screen start -->
-        <section>
-            <div class="error-screen">
+        <br>
+        <br>
+        <br>
+            <div class="error-screen" style="margin: 40;">
                 <img src="{% static 'image/earth.png' %}" class="earth d-none d-lg-block" alt="Admin Panels" />
                 <img src="{% static 'image/moon.png' %}" class="moon d-none d-lg-block" alt="Admin Dashboard" />
                 <img src="{% static 'image/rocket.svg' %}" class="rocket d-none d-lg-block" alt="Admin Template" />
@@ -22,6 +24,8 @@
                     <h1 class="mt-5">{{ code }}</h1>
                     <h3 class="fw-bold mb-5">
                         شكلك عملت حاجة غلط
+                    </h3>
+                    <h3 class="fw-bold mb-5">
                         ارجع للصفحة الرئيسة وحاول تاني
                     </h3>
                     <a href="/" class="btn fw-bold fs-5 rounded-5 px-5 py-3 mb-5">الصفحة الرئيسية</a>
@@ -31,7 +35,6 @@
                 </div>
             </div>
             <!-- Error screen end -->
-        </section>
 	</body>
 
 </html>
