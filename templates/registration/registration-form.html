@@ -20,6 +20,37 @@
         </div>
       </section>
       {% include 'registration/registration-form-js.html' %}
+
+      <script>
+        window.onload = function() {
+          var url = $('#submitStudent').attr('data-soura-url')
+          var choiceField = document.getElementById('part');
+          var partValue = choiceField.value;
+        
+          $.ajax({
+            url: url,
+            data: {
+              part: partValue
+            },
+            dataType: 'json',
+            success: function (data) {
+              $('#soura').empty()
+              $('#soura').append($('<option>', {
+                value: '',
+                text: '---------'
+            }));
+              $.each(data, function (index, item) {
+                $('#soura').append(
+                  $('<option>', {
+                    value: item.id,
+                    text: item.name
+                  })
+                )
+              })
+            }
+          })
+        };
+    </script>
     </body>
   </html>
 {% endblock %}
