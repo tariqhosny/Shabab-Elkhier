@@ -31,7 +31,7 @@
         .left-navbar-button {
             font-size:18px;
             float:left;
-            margin-right:40px;
+            margin-right:0px;
             background:transparent;
             forground:white;
             padding: 5px 10px;
@@ -62,6 +62,9 @@
         .text-button-container p {
             margin-right: 10px;
         }
+
+        .nav-colored { background-color:#000; }
+        .nav-transparent { background-color:transparent;}
     </style> 
 </head> 
 
@@ -96,6 +99,18 @@
         sidebarLeft.classList.remove("open");
         overlayLeft.classList.remove("open");
         });
+
+        const nav = document.getElementById('navbar');
+        window.onscroll = function () { 
+            if (document.body.scrollTop >= 200 ) {
+                myNav.classList.add("nav-colored");
+                myNav.classList.remove("nav-transparent");
+            } 
+            else {
+                myNav.classList.add("nav-transparent");
+                myNav.classList.remove("nav-colored");
+            }
+        };
 
         function enableDisabledInputs() {
             var inputs = document.querySelectorAll('input[disabled]');
