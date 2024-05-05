@@ -37,7 +37,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000/',
     'https://tariqhosny.pythonanywhere.com',
     'https://shababelkhier.pythonanywhere.com',
-    'https://shababtest.pythonanywhere.com/registration',
+    'https://shababtest.pythonanywhere.com/registration#',
     ]
 # Application definition
 
