@@ -15,21 +15,20 @@
                 <div class="col-xl-10 col-lg-8 mx-auto">
                   <div class="section-title text-center">
                     <h2>مسابقة شباب الخير بالبرقي</h2>
-                    <p>الان تستطيع التعرف علي درجات الطالب في السنوات السابقة، وايضا مقرر العام القادم من خلال ادخال الرقم القومي:</p>
+                    <br>
+                    <h5 class="text-center">الان تستطيع التعرف علي درجات الطالب في السنوات السابقة، وايضا مقرر العام القادم من خلال ادخال الرقم القومي:</h5>
                   </div>
                 </div>
               </div>
-              <form method="POST" action="#" class="contact-form">
+              <form method="POST" action="#" class="row g-3 needs-validation" novalidate>
                 {% csrf_token %}
+                {% include 'includes/national-id-form.html' %}
                 <div class="row">
-                  {{ form }}
-                </div>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="button text-center rounded-buttons">
-                      <button type="submit" class="btn primary-btn rounded-full">احصل علي النتيجة</button>
+                    <div class="col-12">
+                      <div class="button text-center rounded-buttons">
+                          <button type="submit" name="nationalIDForm" class="btn primary-btn rounded-full">احصل علي النتيجة</button>
+                      </div>
                     </div>
-                  </div>
                 </div>
               </form>
             </div>
