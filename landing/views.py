@@ -1,5 +1,6 @@
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render
+
 from .forms import GetResultsForm
 from importData.models import Grade, Student
 
@@ -36,3 +37,17 @@ def results(request):
         print("error")
     
     return render(request, 'landing/result-form.html', form)
+
+
+#error handling
+def handler404(request, *args, **argv):
+    return render(request, "errors/error.html", {'code': 404})
+
+def handler400(request, *args, **argv):
+    return render(request, "errors/error.html", {'code': 400})
+
+def handler403(request, *args, **argv):
+    return render(request, "errors/error.html", {'code': 403})
+
+def handler500(request, *args, **argv):
+    return render(request, "errors/error.html", {'code': 500})
