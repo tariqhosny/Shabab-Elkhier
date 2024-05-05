@@ -1,5 +1,6 @@
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render
+from django.http import HttpResponseForbidden, HttpResponseNotFound, HttpResponseBadRequest, HttpResponseServerError
 
 from .forms import GetResultsForm
 from importData.models import Grade, Student
@@ -40,14 +41,18 @@ def results(request):
 
 
 #error handling
-def handler404(request, *args, **argv):
-    return render(request, "errors/error.html", {'code': 404})
-
 def handler400(request, *args, **argv):
-    return render(request, "errors/error.html", {'code': 400})
+    # return render(request, "errors/error.html", {'code': 400})
+    return HttpResponseBadRequest(render(request, "errors/error.html", {'code': 400}))
 
 def handler403(request, *args, **argv):
-    return render(request, "errors/error.html", {'code': 403})
+    # return render(request, "errors/error.html", {'code': 403})
+    return HttpResponseForbidden(render(request, "errors/error.html", {'code': 403}))
+
+def handler404(request, *args, **argv):
+    # return render(request, "errors/error.html", {'code': 404})
+    return HttpResponseNotFound(render(request, "errors/error.html", {'code': 404}))
 
 def handler500(request, *args, **argv):
-    return render(request, "errors/error.html", {'code': 500})
+    # return render(request, "errors/error.html", {'code': 500})
+    return HttpResponseServerError(render(request, "errors/error.html", {'code': 500}))
