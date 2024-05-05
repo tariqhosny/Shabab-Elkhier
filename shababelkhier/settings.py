@@ -33,12 +33,6 @@ ALLOWED_HOSTS = [
     'shababtest.pythonanywhere.com',
     ]
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://127.0.0.1',
-    'https://tariqhosny.pythonanywhere.com',
-    'https://shababelkhier.pythonanywhere.com',
-    'https://shababtest.pythonanywhere.com',
-    ]
 # Application definition
 
 INSTALLED_APPS = [
@@ -58,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
