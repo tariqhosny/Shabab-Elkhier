@@ -11,8 +11,16 @@ from openpyxl import Workbook
 
 def importData(request):
     # Fetch data from the database
-    # data = Student.objects.all()
+    # students = Student.objects.all()
     items = []
+    # for student in students:
+    #     item = [] 
+    #     if student.phone and len(student.phone) != 10:
+    #         item.append(student.name)
+    #         item.append(student.national_id)
+    #         item.append(student.phone)
+    #         item.append(len(items))
+    #         items.append(item)
     # # Create a new Excel workbook
     # wb = Workbook()
     # ws = wb.active
