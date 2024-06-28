@@ -34,10 +34,10 @@ ALLOWED_HOSTS = [
     ]
 
 CSRF_TRUSTED_ORIGINS = [
-    '127.0.0.1',
-    'tariqhosny.pythonanywhere.com',
-    'shababelkhier.pythonanywhere.com',
-    'shababtest.pythonanywhere.com',
+    'https://127.0.0.1',
+    'https://tariqhosny.pythonanywhere.com',
+    'https://shababelkhier.pythonanywhere.com',
+    'https://shababtest.pythonanywhere.com',
     ]
 # Application definition
 
