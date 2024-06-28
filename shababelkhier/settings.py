@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'landibg.middleware.ClearPostOnReloadMiddleware',
+    'landing.middleware.ClearPostOnReloadMiddleware',
 ]
 
 ROOT_URLCONF = 'shababelkhier.urls'
