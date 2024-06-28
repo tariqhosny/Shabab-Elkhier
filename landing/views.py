@@ -39,10 +39,6 @@ def results(request):
             except:
                 form['grades'] = None
                 print("error")
-        else:
-            form['nationalIDForm'] = GetResultsForm()
-    else:
-        form['nationalIDForm'] = GetResultsForm()
     return render(request, 'result/result-form.html', form)
 
 
