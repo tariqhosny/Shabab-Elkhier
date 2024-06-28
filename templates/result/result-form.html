@@ -26,7 +26,7 @@
                   </div>
                 </div>
               </div>
-              <form id="result_form" method="POST" action="#" class="row g-3 needs-validation" onsubmit="resetForm()" novalidate>
+              <form id="result_form" method="POST" action="#" class="row g-3 needs-validation" novalidate>
                 {% csrf_token %}
                 {% include 'includes/national-id-form.html' %}
                 <div class="row">
@@ -41,7 +41,7 @@
           </div>
           
           {% if grades != None and grades.count > 0%}
-            <div class="container">
+            <div class="container" onload="resetForm()">
               <div class="col-xl-8 center-horizontal">
                 <div class="pricing-style-fourteen">
                   <table class="table table-bordered">
@@ -109,7 +109,7 @@
               </div>
             </div>
           {% elif grades == None %}
-            <div class="col-xl-8 center-horizontal">
+            <div class="col-xl-8 center-horizontal" onload="resetForm()">
               <div class="contact-form-wrapper">
                 <div class="row">
                   <div class="col-xl-8 col-lg-8 mx-auto">
