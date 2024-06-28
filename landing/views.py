@@ -36,9 +36,14 @@ def results(request):
                         else:
                             sour.append(grade.soura.title)
                     form['sour'] = sour
+                    form['nationalIDForm'] = GetResultsForm()
             except:
                 form['grades'] = None
-                print("error")
+                form['nationalIDForm'] = GetResultsForm()
+        else:
+            form['nationalIDForm'] = GetResultsForm()
+    else:
+        form['nationalIDForm'] = GetResultsForm()
     return render(request, 'result/result-form.html', form)
 
 

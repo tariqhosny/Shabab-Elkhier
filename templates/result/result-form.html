@@ -3,13 +3,6 @@
 
 {% block content %}
   <!DOCTYPE html>
-    <head>
-      <script>
-          function resetForm() {
-              document.getElementById('result_form').reset();
-          }
-      </script>
-  </head>
     <body>
       <!-- ========================= contact-section start ========================= -->
       <section id="contact" class="contact-section background">
@@ -41,7 +34,7 @@
           </div>
           
           {% if grades != None and grades.count > 0%}
-            <div class="container" onload="resetForm()">
+            <div class="container">
               <div class="col-xl-8 center-horizontal">
                 <div class="pricing-style-fourteen">
                   <table class="table table-bordered">
@@ -109,7 +102,7 @@
               </div>
             </div>
           {% elif grades == None %}
-            <div class="col-xl-8 center-horizontal" onload="resetForm()">
+            <div class="col-xl-8 center-horizontal">
               <div class="contact-form-wrapper">
                 <div class="row">
                   <div class="col-xl-8 col-lg-8 mx-auto">
