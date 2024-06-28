@@ -3,6 +3,13 @@
 
 {% block content %}
   <!DOCTYPE html>
+    <head>
+      <script>
+          function resetForm() {
+              document.getElementById('result_form').reset();
+          }
+      </script>
+  </head>
     <body>
       <!-- ========================= contact-section start ========================= -->
       <section id="contact" class="contact-section background">
@@ -19,7 +26,7 @@
                   </div>
                 </div>
               </div>
-              <form id="result_form" method="POST" action="#" class="row g-3 needs-validation" novalidate>
+              <form id="result_form" method="POST" action="#" class="row g-3 needs-validation" onsubmit="resetForm()" novalidate>
                 {% csrf_token %}
                 {% include 'includes/national-id-form.html' %}
                 <div class="row">

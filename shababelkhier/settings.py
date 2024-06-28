@@ -33,12 +33,6 @@ ALLOWED_HOSTS = [
     'shababtest.pythonanywhere.com',
     ]
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://127.0.0.1',
-    'https://tariqhosny.pythonanywhere.com',
-    'https://shababelkhier.pythonanywhere.com',
-    'https://shababtest.pythonanywhere.com',
-    ]
 # Application definition
 
 INSTALLED_APPS = [
