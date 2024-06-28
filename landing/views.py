@@ -1,3 +1,4 @@
+
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render
 from django.http import HttpResponseForbidden, HttpResponseNotFound, HttpResponseBadRequest, HttpResponseServerError
@@ -44,6 +45,7 @@ def results(request):
             form['nationalIDForm'] = GetResultsForm()
 
         # return HttpResponseRedirect('result', form)
+    print(get_token)
     return render(request, 'result/result-form.html', form)
 
 
@@ -54,7 +56,6 @@ def handler400(request, *args, **argv):
 
 def handler403(request, *args, **argv):
     # return render(request, "errors/error.html", {'code': 403})
-    print(get_token)
     return HttpResponseForbidden(render(request, "errors/error.html", {'code': 403}))
 
 def handler404(request, *args, **argv):
