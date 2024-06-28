@@ -3,18 +3,7 @@
 
 {% block content %}
 <html lang="ar">
-    <head>
-        <title>CSRF Verification Failed</title>
-        <script>
-            function checkCookiesEnabled() {
-                document.cookie = "testcookie";
-                if (document.cookie.indexOf("testcookie") === -1) {
-                    document.getElementById("cookie-warning").style.display = "block";
-                }
-            }
-        </script>
-    </head>
-	<body onload="checkCookiesEnabled()">
+	<body>
             <div id="notfound">
                 <div class="notfound">
                     <div class="notfound-404">

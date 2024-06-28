@@ -33,6 +33,12 @@ ALLOWED_HOSTS = [
     'shababtest.pythonanywhere.com',
     ]
 
+CSRF_TRUSTED_ORIGINS = [
+    '127.0.0.1',
+    'tariqhosny.pythonanywhere.com',
+    'shababelkhier.pythonanywhere.com',
+    'shababtest.pythonanywhere.com',
+    ]
 # Application definition
 
 INSTALLED_APPS = [
@@ -56,7 +62,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'landing.middleware.ClearPostOnReloadMiddleware',
 ]
 
 ROOT_URLCONF = 'shababelkhier.urls'
