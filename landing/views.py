@@ -1,6 +1,7 @@
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render
 from django.http import HttpResponseForbidden, HttpResponseNotFound, HttpResponseBadRequest, HttpResponseServerError
+from django.middleware.csrf import get_token
 
 from .forms import GetResultsForm
 from importData.models import Grade, Student
@@ -36,14 +37,13 @@ def results(request):
                         else:
                             sour.append(grade.soura.title)
                     form['sour'] = sour
-                    form['nationalIDForm'] = GetResultsForm()
             except:
                 form['grades'] = None
                 form['nationalIDForm'] = GetResultsForm()
         else:
             form['nationalIDForm'] = GetResultsForm()
-    else:
-        form['nationalIDForm'] = GetResultsForm()
+
+        # return HttpResponseRedirect('result', form)
     return render(request, 'result/result-form.html', form)
 
 
@@ -54,6 +54,7 @@ def handler400(request, *args, **argv):
 
 def handler403(request, *args, **argv):
     # return render(request, "errors/error.html", {'code': 403})
+    print(get_token)
     return HttpResponseForbidden(render(request, "errors/error.html", {'code': 403}))
 
 def handler404(request, *args, **argv):
