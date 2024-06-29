@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'registration.apps.RegistrationConfig',
     'importData.apps.ImportdataConfig',
     'landing.apps.LandingConfig',
+    'natiga.apps.NatigaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
