@@ -2,7 +2,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import HttpResponseForbidden, HttpResponseNotFound, HttpResponseBadRequest, HttpResponseServerError
-from django.middleware.csrf import get_token
 
 from .forms import GetResultsForm
 from importData.models import Grade, Student
@@ -39,12 +38,8 @@ def results(request):
                     form['sour'] = sour
             except:
                 form['grades'] = None
-                form['nationalIDForm'] = GetResultsForm()
         else:
             form['nationalIDForm'] = GetResultsForm()
-
-        # return HttpResponseRedirect('result', form)
-    print(get_token)
     return render(request, 'result/result-form.html', form)
 
 

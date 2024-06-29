@@ -122,13 +122,6 @@
                 window.location.replace('/');
             //}, 100);
         }
-
-        $(document).ready(function() {
-            // Fetch a new CSRF token from the server and update the form
-            $.get('/get-csrf-token/', function(data) {
-                $('input[name="csrfmiddlewaretoken"]').val(data.csrf_token);
-            });
-        });
     </script>
     </body>
 </html>
