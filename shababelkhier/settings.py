@@ -24,7 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-mz3%@7q268cej6$csk^#a=pt1o+ee0u)0qk&(d)pn7u#5xm#f='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+HANDLER403 = 'landing.views.handler403'
 
 ALLOWED_HOSTS = [
     '127.0.0.1',

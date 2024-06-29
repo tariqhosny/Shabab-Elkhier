@@ -1,5 +1,5 @@
 
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import HttpResponseForbidden, HttpResponseNotFound, HttpResponseBadRequest, HttpResponseServerError
 from django.middleware.csrf import get_token
@@ -9,7 +9,6 @@ from importData.models import Grade, Student
 
 # Create your views here.
 
-@csrf_protect
 def landing(request):
     # try:
     #     success = request.GET.get('sucessSubmit')
@@ -18,7 +17,7 @@ def landing(request):
     #     print('error')
     return render(request, 'landing/landing.html')
 
-@csrf_protect
+@csrf_exempt
 def results(request):
     form = {'nationalIDForm': GetResultsForm}
     form['grades'] = []
