@@ -30,6 +30,7 @@ HANDLER403 = 'landing.views.handler403'
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
+    'tariqs-mac.local',
     'tariqhosny.pythonanywhere.com',
     'shababelkhier.pythonanywhere.com',
     'shababtest.pythonanywhere.com',
