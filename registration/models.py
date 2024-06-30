@@ -14,5 +14,3 @@ class NewStudent(models.Model):
     prize_time = models.CharField(max_length=100, null=True, blank=True)
     from_baqra = models.BooleanField(default=False)
     first_time = models.BooleanField(default=False)
-    grade = models.CharField(max_length=100, null=True, blank=True)
-    prize_time = models.CharField(max_length=100, null=True, blank=True)
