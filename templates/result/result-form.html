@@ -6,11 +6,11 @@
   <html dir="rtl" lang="ar">
     <body>
       <!-- ========================= contact-section start ========================= -->
-      <section id="contact" class="contact-section background">
+      <section id="contact" class="contact-section background" style="padding-top: 70px;">
         <br>
         <div class="container">
-          <div class="col-xl-8 center-horizontal">
-            <div class="contact-form-wrapper">
+          <div class="col-xl-8 center-horizontal" style="padding: 0px;">
+            <div class="contact-form-wrapper" style="margin: 0px;">
               <div class="row">
                 <div class="col-xl-10 col-lg-8 mx-auto">
                   <div class="section-title text-center">
@@ -23,21 +23,16 @@
               <form method="POST" action="#" class="row g-3 needs-validation" novalidate>
                 {% csrf_token %}
                 {% include 'includes/national-id-form.html' %}
-                <div class="row">
-                    <div class="col-12">
-                      <div class="button text-center rounded-buttons">
-                          <button type="submit" name="nationalIDForm" class="btn primary-btn rounded-full">احصل علي النتيجة</button>
-                      </div>
-                    </div>
+                <div class="button text-center rounded-buttons">
+                  <button type="submit" name="nationalIDForm" class="btn primary-btn rounded-full">احصل علي النتيجة</button>
                 </div>
               </form>
             </div>
           </div>
           
           {% if grades != None and grades.count > 0%}
-            <div class="container">
-              <div class="col-xl-8 center-horizontal">
-                <div class="pricing-style-fourteen">
+            <div class="col-xl-8 center-horizontal" style="background-color: white; border:solid black 1px; border-radius: 12px; padding: 15px; margin-top: 20px;">
+              <div class="section-title text-center" style="margin: 0px;">
                   <table class="table table-bordered">
                     <tbody>
                       <tr>
@@ -103,15 +98,15 @@
               </div>
             </div>
           {% elif grades == None %}
-            <div class="col-xl-8 center-horizontal">
-              <div class="contact-form-wrapper">
-                <div class="row">
-                  <div class="col-xl-8 col-lg-8 mx-auto">
-                    <div class="section-title text-center">
-                      <h5 style="color:red">بيانات الطالب غير متاحة. الرجاء المحاولة مرة اخري</h5>
-                    </div>
+            <div class="col-xl-8 center-horizontal" style="background-color: wheat; border:solid black 2px; border-radius: 12px; padding: 15px; margin-top: 20px;">
+              <div class="section-title text-center" style="margin: 0px;">
+                  <h5 class="text-center" style="margin: 10px;">بيانات الطالب غير متاحة ... الرجاء المحاولة مرة اخري او التواصل عبر الواتساب من خلال الضغط هنا</h5>
+                  <div class="button text-center rounded-buttons">
+                      <a class="btn primary-btn rounded-full" target="_blank" href="https://wa.me/201098831979">
+                          <img src="{% static 'image/whatsapp.png' %}" alt="Logo" width="22" height="22" class="d-inline-block align-text-center" style="margin-left:5px;">
+                          تواصل معنا
+                      </a>
                   </div>
-                </div>
               </div>
             </div>
           {% endif %}
