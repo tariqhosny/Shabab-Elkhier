@@ -10,4 +10,7 @@ class NewStudent(models.Model):
     phone = models.CharField(max_length=20)
     part = models.ForeignKey(Part, on_delete=models.PROTECT)
     soura = models.ForeignKey(Soura, on_delete=models.PROTECT, related_name='new_student_soura')
+    grade = models.CharField(max_length=20, null=True, blank=True)
+    prize_time = models.CharField(max_length=100, null=True, blank=True)
+    from_baqra = models.BooleanField(default=False)
     first_time = models.BooleanField(default=False)
