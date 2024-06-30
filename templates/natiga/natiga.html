@@ -1,0 +1,81 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block content %}
+  <!DOCTYPE html>
+  <html dir="rtl" lang="ar">
+    <body>
+      <!-- ========================= contact-section start ========================= -->
+      <section id="contact" class="contact-section background">
+        <br>
+        <div class="container">
+          <div class="col-xl-8 center-horizontal">
+            <div class="contact-form-wrapper" style="padding: 20px;">
+              <div class="row">
+                <div class="col-xl-10 col-lg-8 mx-auto">
+                  <div class="section-title text-center">
+                    <img src="{% static 'image/logo.png' %}" alt="#"  width="130" height="130"/>
+                    <br>
+                    <br>
+                    <h5>نتيجة مسابقة شباب الخير بالبرقي</h5>
+                    <h5>لعام 2024</h5>
+                  </div>
+                </div>
+              </div>
+              <form method="POST" action="#" class="row g-3 needs-validation" novalidate>
+                    {% csrf_token %}
+                    {% include 'includes/national-id-form.html' %}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="button text-center rounded-buttons">
+                                <button type="submit" name="nationalIDForm" class="btn primary-btn rounded-full">احصل علي النتيجة</button>
+                            </div>
+                        </div>
+                    </div>
+              </form>
+                {% if student != None %}
+                    <div class="container" style="border:solid black 2px; border-radius: 15px; padding: 15px; margin-top: 20px;">
+                    <table class="table table-bordered" style="margin: 0px;">
+                        <tbody>
+                        <tr>
+                            <th scope="row">الاسم</th>
+                            <td>{{student.name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">عدد الاجزاء</th>
+                            <td>{{student.part.number}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">السورة</th>
+                            <td>{{soura}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">الدرجة</th>
+                            <td>{{student.grade}}</td>
+                        </tr>
+                        <th scope="row">تاريخ الاستلام</th>
+                        <td>{{student.prize_time}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                {% elif show_error == True %}
+                    <div class="container" style="border:solid black 2px; border-radius: 15px; padding: 15px; margin-top: 20px;">
+                        <div class="section-title text-center" style="margin: 0px;">
+                            <h5 class="text-center" style="margin: 10px;">بيانات الطالب غير متاحة ... الرجاء المحاولة مرة اخري او التواصل عبر الواتساب من خلال الضغط هنا</h5>
+                            <div class="button text-center rounded-buttons">
+                                <a class="btn primary-btn rounded-full" target="_blank" href="https://wa.me/201098831979">
+                                    <img src="{% static 'image/whatsapp.png' %}" alt="Logo" width="22" height="22" class="d-inline-block align-text-center" style="margin-left:5px;">
+                                    تواصل معنا
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </section>
+    </body>
+  </html>
+{% endblock %}
