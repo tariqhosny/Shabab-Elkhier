@@ -38,8 +38,8 @@ def results(request):
                     form['sour'] = sour
             except:
                 form['grades'] = None
-        else:
-            form['nationalIDForm'] = GetResultsForm()
+    else:
+        form['nationalIDForm'] = GetResultsForm()
     return render(request, 'result/result-form.html', form)
 
 

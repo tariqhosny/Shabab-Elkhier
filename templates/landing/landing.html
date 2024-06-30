@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
     <body>
-        <!-- Start header Area -->
         <section id="hero-area" class="background header-area header-eight">
             <div class="container">
                 {% if success != None %}
@@ -28,11 +27,6 @@
                                         <a class="primary-btn landing-button" href="{% url 'result' %}">احصل علي النتائج السابقة</a>
                                     </div>
                                 </div>
-                                {% comment %} <div class="col-md-6">
-                                    <div class="navbar-brand">
-                                        <a class="primary-btn landing-button" href="{% url 'registration' %}">التسجيل في المسابقة</a>
-                                    </div>
-                                </div> {% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -45,8 +39,6 @@
                 {% endif %}
             </div>
         </section>
-    {% comment %} </div> {% endcomment %}
-      <!-- End header Area -->
     </body>
 </html>
 {% endblock content %}
