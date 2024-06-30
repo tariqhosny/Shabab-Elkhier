@@ -24,7 +24,7 @@ def natiga(request):
             except:
                 form['student'] = None
                 form['show_error'] = True
-            form['nationalIDForm'] = GetResultsForm()
-        else:
-            form['nationalIDForm'] = GetResultsForm()
+                form['nationalIDForm'] = GetResultsForm()
+    else:
+        form['nationalIDForm'] = GetResultsForm()
     return render(request, 'natiga/natiga.html', form)
