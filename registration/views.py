@@ -57,6 +57,12 @@ def registration(request):
                         submittedStudent.first_time = True
                     else:
                         submittedStudent.first_time = False
+                    part = form['form'].cleaned_data.get('part')
+                    soura = form['form'].cleaned_data.get('soura')
+                    if (int(part.number) <= 15 and int(soura.number) >= 18) or (int(part.number) > 15 and int(soura.number) < 18):
+                        submittedStudent.from_baqra = False
+                    else:
+                        submittedStudent.from_baqra = True
                     form['form'].save()
                     form['form'] = SubmitNewStudentForm()
                     return HttpResponseRedirect("/?sucessSubmit=1")
@@ -66,6 +72,12 @@ def registration(request):
                     submittedStudent = form['form'].save(commit=False)
                     phone = arabic_to_english(form['form'].cleaned_data.get('phone'))
                     submittedStudent.phone = phone
+                    part = form['form'].cleaned_data.get('part')
+                    soura = form['form'].cleaned_data.get('soura')
+                    if (int(part.number) <= 15 and int(soura.number) >= 18) or (int(part.number) > 15 and int(soura.number) < 18):
+                        submittedStudent.from_baqra = False
+                    else:
+                        submittedStudent.from_baqra = True
                     form['form'].instance.save()
                     form['form'] = SubmitNewStudentForm()
                     return HttpResponseRedirect("/?sucessSubmit=1")
