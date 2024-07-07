@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin_tariq/', admin.site.urls),
     path('', include('landing.urls')),
     # path('registration', include('registration.urls')),
+    # path('natiga', include('natiga.urls')),
     # path('', include('importData.urls')),
 ]
 handler400 = 'landing.views.handler400'
