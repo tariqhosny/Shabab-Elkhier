@@ -21,12 +21,20 @@
                             <p style="font-size:25px; text-align: right">
                                 الان تستطيع التعرف علي درجات الطالب في السنوات السابقة، وايضا مقرر العام القادم:
                             </p>
+                            {% comment %} <p style="font-size:25px; text-align: right">
+                                الان تستطيع التعرف علي درجات الطالب في السنوات السابقة، وايضا مقرر العام القادم - أو التسجيل في مسابقة شباب الخير:
+                            </p> {% endcomment %}
                             <div class="row button" style="text-align: center">
                                 <div class="col-md-6">
                                     <div class="navbar-brand">
                                         <a class="primary-btn landing-button" href="{% url 'result' %}">احصل علي النتائج السابقة</a>
                                     </div>
                                 </div>
+                                {% comment %} <div class="col-md-6">
+                                    <div class="navbar-brand">
+                                        <a class="primary-btn landing-button" href="{% url 'registration' %}">التسجيل في المسابقة</a>
+                                    </div>
+                                </div> {% endcomment %}
                             </div>
                         </div>
                     </div>

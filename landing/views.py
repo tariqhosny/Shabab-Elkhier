@@ -9,11 +9,11 @@ from importData.models import Grade, Student
 # Create your views here.
 
 def landing(request):
-    # try:
-    #     success = request.GET.get('sucessSubmit')
-    #     return render(request, 'landing/landing.html', {'success': success})
-    # except:
-    #     print('error')
+    try:
+        success = request.GET.get('sucessSubmit')
+        return render(request, 'landing/landing.html', {'success': success})
+    except:
+        print('error')
     return render(request, 'landing/landing.html')
 
 @csrf_exempt

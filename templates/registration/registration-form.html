@@ -11,9 +11,11 @@
         <br>
         <div class="container">
             {% include 'registration/registration-form-nationalID.html' %}
+            
             {% if student != None %}
             {% include 'registration/registration-form-student-info.html' %}
             {% endif %}
+            
             {% if hideNationalID == True %}
             {% include 'registration/registration-submit-form.html' %}
             {% endif %}
