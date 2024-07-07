@@ -15,7 +15,7 @@ class Part(models.Model):
     soura = models.ManyToManyField(Soura)
 
     def __str__(self) -> str:
-        return self.title
+        return self.title + ' ( ' + str(self.number) + ' )'
 
 class Year(models.Model):
     hijri_year = models.CharField(max_length=4)

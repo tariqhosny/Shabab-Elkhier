@@ -16,6 +16,7 @@
             overflow: auto;
             background-size: cover; 
             background-position: center;
+            {% comment %} padding-top: 70px; {% endcomment %}
             padding-bottom: 30px;
             overflow-x: hidden;
         }      
@@ -29,38 +30,40 @@
           }
 
         .left-navbar-button {
-            font-size:20px;
+            font-size:18px;
             float:left;
-            margin-right:40px;
+            margin-right:0px;
             background:transparent;
             forground:white;
-            padding: 5px 24px;
+            padding: 5px 10px;
             border: 1px solid transparent;
             border-radius: 4px;
             border-color:white;
             border-width:2px;
         }
 
-        .primary-btn:hover {
-            background-color: white;
-            color: green;
-            border: 3px solid green;
+        .landing-button {
+            font-size:20px;
+            background: transparent;
+            padding: 10px 40px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            border-color:white;
+            border-width:2px;
+        }
+
+        .primary-btn {
+            background-color: rgba(79, 111, 82, 0.95);
+            color: white;
+            border: 3px solid white;
             border-radius: 15px;
         }
 
-        .text-button-container {
-            display: inline-block;
-            vertical-align: top;
-        }
-
-        .text-button-container p,
-        .text-button-container div {
-            margin: 0;
-            display: inline;
-        }
-
-        .text-button-container p {
-            margin-right: 10px;
+        .primary-btn:hover {
+            background-color: white;
+            color: green;
+            border: 5px solid rgb(205, 232, 229);
+            border-radius: 15px;
         }
     </style> 
 </head> 
@@ -71,7 +74,7 @@
 {% comment %} {% include 'parts/footer.html' %} {% endcomment %}
 
 <html dir="rtl" lang="ar">
-    <body>
+    <body style="background-color: rgb(79, 111, 82);">
 
     <script>
 
@@ -97,6 +100,29 @@
         overlayLeft.classList.remove("open");
         });
 
+        const nav = document.getElementById('navbar');
+        window.onscroll = function () { 
+            if (document.body.scrollTop >= 200 ) {
+                myNav.classList.add("nav-colored");
+                myNav.classList.remove("nav-transparent");
+            } 
+            else {
+                myNav.classList.add("nav-transparent");
+                myNav.classList.remove("nav-colored");
+            }
+        };
+
+        function enableDisabledInputs() {
+            var inputs = document.querySelectorAll('input[disabled]');
+            inputs.forEach(function(input) {
+                input.disabled = false;
+            });
+        }
+        function reloadCurrentPage() {
+            //setTimeout(function() {
+                window.location.replace('/');
+            //}, 100);
+        }
     </script>
     </body>
 </html>

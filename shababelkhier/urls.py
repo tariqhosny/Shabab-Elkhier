@@ -16,9 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import ( handler400, handler403, handler404, handler500 )
 
 urlpatterns = [
     path('admin_tariq/', admin.site.urls),
     path('', include('landing.urls')),
+    # path('registration', include('registration.urls')),
     # path('', include('importData.urls')),
 ]
+handler400 = 'landing.views.handler400'
+handler403 = 'landing.views.handler403'
+handler404 = 'landing.views.handler404'
+handler500 = 'landing.views.handler500'

@@ -1,24 +1,32 @@
 
-{% extends "base.html" %}
+{% extends "includes/base.html" %}
 {% load static%}
 
 {% block content %}
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
     <body>
-        <!-- Start header Area -->
         <section id="hero-area" class="background header-area header-eight">
             <div class="container">
+                {% if success != None %}
+                    {% include 'landing/registration-form-success.html' %}
+                {% else %}
                 <h1 style="text-align:center; color:white">مسابقة شباب الخير بالبرقي</h1>
+                <br>
+                <br>
                 <br>
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="header-content">
                             <p style="font-size:25px; text-align: right">
-                                الان تستطيع التعرف علي درجات الطالب في السنوات السابقة، وايضا مقرر العام القادم من خلال الرابط التالي:
+                                الان تستطيع التعرف علي درجات الطالب في السنوات السابقة، وايضا مقرر العام القادم:
                             </p>
-                            <div class="button" style="text-align: right">
-                                <a class="btn primary-btn" href="{% url 'result' %}">احصل علي النتيجة</a>
+                            <div class="row button" style="text-align: center">
+                                <div class="col-md-6">
+                                    <div class="navbar-brand">
+                                        <a class="primary-btn landing-button" href="{% url 'result' %}">احصل علي النتائج السابقة</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -28,10 +36,9 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </section>
-    {% comment %} </div> {% endcomment %}
-      <!-- End header Area -->
     </body>
 </html>
 {% endblock content %}
