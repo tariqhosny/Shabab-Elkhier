@@ -14,12 +14,8 @@
             <form method="POST" action="#" class="row g-3 needs-validation" novalidate>
               {% csrf_token %}
               {% include 'includes/national-id-form.html' %}
-              <div class="row">
-                  <div class="col-12">
-                    <div class="button text-center rounded-buttons">
-                        <button type="submit" name="nationalIDForm" class="btn primary-btn rounded-full">التالي</button>
-                    </div>
-                  </div>
+              <div class="button text-center rounded-buttons">
+                <button type="submit" name="nationalIDForm" class="btn primary-btn rounded-full">التالي</button>
               </div>
             </form>
         {% else %}

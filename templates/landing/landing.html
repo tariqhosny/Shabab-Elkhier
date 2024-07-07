@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
     <body>
-        <!-- Start header Area -->
         <section id="hero-area" class="background header-area header-eight">
             <div class="container">
                 {% if success != None %}
@@ -19,10 +18,27 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="header-content">
+                            {% comment %} <p style="font-size:25px; text-align: right">
+                                الان تستطيع التعرف علي درجات الطالب في السنوات السابقة، وايضا مقرر العام القادم:
+                            </p> {% endcomment %}
+                            {% comment %} <p style="font-size:25px; text-align: right">
+                                الان تستطيع التعرف علي درجات الطالب في السنوات السابقة، وايضا مقرر العام القادم - أو التسجيل في مسابقة شباب الخير:
+                            </p> {% endcomment %}
+
                             <p style="font-size:25px; text-align: right">
                                 الان تستطيع التعرف علي نتيجة الطالب في مسابقة هذا العام:
                             </p>
                             <div class="row button" style="text-align: center">
+                                {% comment %} <div class="col-md-6">
+                                    <div class="navbar-brand">
+                                        <a class="primary-btn landing-button" href="{% url 'result' %}">احصل علي النتائج السابقة</a>
+                                    </div>
+                                </div> {% endcomment %}
+                                {% comment %} <div class="col-md-6">
+                                    <div class="navbar-brand">
+                                        <a class="primary-btn landing-button" href="{% url 'registration' %}">التسجيل في المسابقة</a>
+                                    </div>
+                                </div> {% endcomment %}
                                 <div class="col-md-6">
                                     <div class="navbar-brand">
                                         <a class="primary-btn landing-button" href="{% url 'natiga' %}">نتيجة العام الحالي</a>
@@ -40,8 +56,6 @@
                 {% endif %}
             </div>
         </section>
-    {% comment %} </div> {% endcomment %}
-      <!-- End header Area -->
     </body>
 </html>
 {% endblock content %}
