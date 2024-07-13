@@ -13,7 +13,7 @@ def natiga(request):
         form['nationalIDForm'] = GetResultsForm(request.POST)
         if form['nationalIDForm'].is_valid():
             try:
-                national_id = request.POST.get('nationalID')
+                national_id = arabic_to_english(request.POST.get('nationalID'))
                 if national_id != None:
                     student = NewStudent.objects.get(national_id = national_id)
                     form['student'] = student
@@ -28,3 +28,8 @@ def natiga(request):
     else:
         form['nationalIDForm'] = GetResultsForm()
     return render(request, 'natiga/natiga.html', form)
+
+def arabic_to_english(arabic_number):
+    arabic_numbers = '٠١٢٣٤٥٦٧٨٩'
+    english_numbers = '0123456789'
+    return arabic_number.translate(str.maketrans(arabic_numbers, english_numbers))
