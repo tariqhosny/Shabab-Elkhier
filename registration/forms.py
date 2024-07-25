@@ -113,7 +113,7 @@ class SubmitNewStudentForm(forms.ModelForm):
             full_name = self.cleaned_data.get('name')
             names = full_name.split() if full_name else []
 
-            is_enabled = self.fields['name'].widget.attrs.get('data-enabled') == 'true'
+            is_enabled = self.fields['name'].widget.attrs.get('disabled') == False
             if is_enabled:
                 if len(names) < 4:
                     raise forms.ValidationError("لازم الاسم بالكامل يكون اسم رباعي كما هو في شهادة الميلاد")

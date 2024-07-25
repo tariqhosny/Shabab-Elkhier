@@ -52,22 +52,6 @@
             }
           })
         };
-        function toggleField() {
-          var nameField = document.getElementById('id_name');
-          if (nameField.disabled) {
-              nameField.disabled = false;
-              nameField.setAttribute('data-enabled', 'true');
-          } else {
-              nameField.disabled = true;
-              nameField.setAttribute('data-enabled', 'false');
-          }
-        }
-        function checkBeforeSubmit() {
-            var nameField = document.getElementById('id_name');
-            if (nameField.disabled) {
-                nameField.removeAttribute('data-enabled');
-            }
-        }
     </script>
     </body>
   </html>
