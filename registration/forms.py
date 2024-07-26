@@ -25,11 +25,12 @@ class SubmitNewStudentForm(forms.ModelForm):
     national_id = forms.CharField(max_length=14, min_length=14, label="الرقم القومي", widget=forms.TextInput(attrs={'placeholder': 'ادخل الرقم القومي', 'disabled': True}))
     name = forms.CharField(max_length=100, label="الاسم بالكامل", widget=forms.TextInput(attrs={'placeholder': 'ادخل الاسم بالكامل'}))
     phone = forms.CharField(max_length=11, min_length=11, label="رقم التليفون", widget=forms.TextInput(attrs={'placeholder': 'ادخل رقم التليفون'}))
-    checkbox = forms.BooleanField(required=True, label = 'هل انت متأكل من السورة التي قمت باختيارها؟')
+    checkbox = forms.BooleanField(required=True, label = 'هل انت متأكد من السورة التي قمت باختيارها؟')
+    ahkam_checkbox = forms.BooleanField(required=True, label = 'الطالب اللي هيقدم بثمانية اجزاء او اكثر مطالب بالاحكام ( تحفة الاطفال).')
 
     class Meta:
         model = NewStudent
-        fields = ['national_id', 'name', 'phone', 'part', 'soura', 'checkbox']
+        fields = ['national_id', 'name', 'phone', 'part', 'soura', 'checkbox', 'ahkam_checkbox']
     
     def __init__(self, *args, **kwargs):
         student_id = kwargs.pop('student_id', None)
@@ -89,6 +90,9 @@ class SubmitNewStudentForm(forms.ModelForm):
             'required': 'لازم تختار سورة',
         }
         self.fields['checkbox'].error_messages = {
+            'required': 'لازم تختار المربع',
+        }
+        self.fields['ahkam_checkbox'].error_messages = {
             'required': 'لازم تختار المربع',
         }
 
