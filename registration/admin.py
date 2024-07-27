@@ -5,6 +5,6 @@ from .models import NewStudent
 class NewStudentAdmin(admin.ModelAdmin):
     list_display = ['name', 'national_id', 'phone', 'part', 'soura', 'first_time']
     search_fields = ['name', 'national_id']
-    list_filter = ['part']
+    list_filter = ['first_time', 'part']
     
 admin.site.register(NewStudent, NewStudentAdmin)
