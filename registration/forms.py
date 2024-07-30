@@ -123,7 +123,7 @@ class SubmitNewStudentForm(forms.ModelForm):
                     raise forms.ValidationError("لازم الاسم بالكامل يكون اسم رباعي كما هو في شهادة الميلاد")
                 
                 for name in names:
-                    if len(name) < 3:
+                    if len(name) < 2:
                         raise forms.ValidationError("لازم الاسم بالكامل يكون اسم رباعي كما هو في شهادة الميلاد")
 
             return full_name
