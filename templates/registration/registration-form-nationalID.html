@@ -19,7 +19,13 @@
               </div>
             </form>
         {% else %}
-            <h5 class="text-center">الرجاء التأكد من ان جميع البيانات صحيحة وفي حالة حدوث مشكلة الرجاء المحاولة مرة اخري او التواصل علي الواتساب من خلال الضغط هنا:</h5>
+            {% if new_student == None %}
+              <h5 class="text-center">الرجاء التأكد من ان جميع البيانات صحيحة وفي حالة حدوث مشكلة الرجاء المحاولة مرة اخري او التواصل علي الواتساب من خلال الضغط هنا:</h5>
+            {% else %}
+              <h5 class="text-center">لقد تم التسجيل بالفعل في المسابقة</h5>
+              <br>
+              <h5 class="text-center">في حالة وجود مشكلة الرجاء التواصل علي الواتساب من خلال الضغط هنا:</h5>
+            {% endif %}
             <br>
             <div class="button text-center rounded-buttons">
                 <a class="btn primary-btn rounded-full" target="_blank" href="https://wa.me/201098831979">

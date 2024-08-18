@@ -13,11 +13,17 @@
             {% include 'registration/registration-form-nationalID.html' %}
             
             {% if student != None %}
-            {% include 'registration/registration-form-student-info.html' %}
+              {% if new_student == None %}
+                {% include 'registration/registration-form-student-info.html' %}
+              {% endif %}
             {% endif %}
             
             {% if hideNationalID == True %}
-            {% include 'registration/registration-submit-form.html' %}
+              {% if new_student == None %}
+                {% include 'registration/registration-submit-form.html' %}
+              {% else %}
+                {% include 'registration/registration-submitted-student.html' %}
+              {% endif %}
             {% endif %}
         </div>
       </section>

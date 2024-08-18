@@ -11,6 +11,7 @@ form = {'hideNationalID': False}
 # form['hideNationalID'] = False
 form['nationalID'] = None
 form['student'] = None
+form['new_student'] = None
 form['min_amount'] = 1
 
 @csrf_exempt
@@ -25,6 +26,7 @@ def registration(request):
                 form['nationalID'] = national_id
                 if national_id != None:
                     newStudent = NewStudent.objects.filter(national_id = national_id).first()
+                    form['new_student'] = newStudent
                     if newStudent is None:
                         try:
                             student = Student.objects.get(national_id = national_id)
