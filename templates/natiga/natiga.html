@@ -39,7 +39,8 @@
                         </tr>
                         <tr>
                             <th scope="row">عدد الاجزاء</th>
-                            <td>{{student.part.number}}</td>
+                            {% comment %} <td>{{student.part.number}}</td> {% endcomment %}
+                            <td>القرآن الكريم كاملا</td>
                         </tr>
                         <tr>
                             <th scope="row">السورة</th>
@@ -47,7 +48,7 @@
                         </tr>
                         <tr>
                             <th scope="row">الدرجة</th>
-                            <td>{{student.grade}}</td>
+                            <td>{{student.grade}}%</td>
                         </tr>
                         <th scope="row">تاريخ الاستلام</th>
                         <td>{{student.prize_time}}</td>
