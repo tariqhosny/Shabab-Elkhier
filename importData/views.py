@@ -5,7 +5,8 @@ from .models import Part
 from .models import Year
 from .models import Student
 from .models import Grade
-from openpyxl import Workbook
+from registration.models import NewStudent
+from openpyxl import Workbook, load_workbook
 
 # Create your views here.
 
@@ -76,23 +77,57 @@ def importData(request):
             # items.append(item)
     
     
-    # excelFile = load_workbook('/Users/tariq/Desktop/2021.xlsx')
+    # excelFile = load_workbook('/Volumes/Data/Shabab Al-Barqy/Shabab Elkhier/Website/2024.xlsx')
     # ws = excelFile['sheet']
 
-    # for i in range(2, 652):
-    #     phone = ws['G'+str(i)].value
+    # count = 0
+    # for i in range(2, 1104):
+    #     name = ws['A'+str(i)].value
     #     national_id = ws['C'+str(i)].value
-        # try:
-        #     student = Student.objects.get(national_id= national_id)
-        #     if national_id != None and student.phone == None and phone != None:
-        #         student.phone = phone
-        #         student.save()
-        #         item = []
-        #         item.append(ws['B'+str(i)].value)
-        #         item.append(ws['C'+str(i)].value)
-        #         item.append(ws['G'+str(i)].value)
-        #         items.append(item)
-        #         print('saved')
-        # except (Student.DoesNotExist):
-        #     print('not found')
+    #     prize_time = ws['P'+str(i)].value
+    #     phone = ws['D'+str(i)].value
+
+    #     if phone is None:
+    #         phone = "0"
+
+    #     try:
+    #         grade = int(ws['M'+str(i)].value)
+    #     except:
+    #         print(national_id)
+
+    #     try:
+    #         soura = Soura.objects.get(title= ws['B'+str(i)].value)
+    #     except:
+    #         print(national_id)
+
+    #     try:
+    #         part = Part.objects.get(number= int(ws['E'+str(i)].value))
+    #     except:
+    #         print(national_id)
+
+    #     try:
+    #         student = NewStudent()
+    #         if national_id != None and (grade > 0):
+    #             count += 1
+    #             student.name = name
+    #             student.national_id = national_id
+    #             student.phone = phone
+    #             student.part = part
+    #             student.soura = soura
+    #             student.prize_time = prize_time
+    #             student.grade = grade
+    #             student.save()
+    #             item = []
+    #             item.append(count)
+    #             item.append(name)
+    #             # item.append(national_id)
+    #             # item.append(phone)
+    #             # item.append(part)
+    #             # item.append(Soura.objects.get(title= soura))
+    #             # item.append(grade)
+    #             # item.append(prize_time)
+    #             items.append(item)
+    #     except:
+    #         print('not found')
+    # print(count)
     return render(request, 'importData/importData.html', {'items': items})
