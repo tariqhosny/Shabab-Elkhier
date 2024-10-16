@@ -7,7 +7,7 @@ from .models import Grade
 
 # Register your models here.
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'national_id', 'phone', 'next_amount', 'ahkam', 'isFinished']
+    list_display = ['name', 'national_id', 'phone', 'last_amount', 'ahkam', 'isFinished']
     search_fields = ['name', 'national_id']
     list_filter = ['next_amount', 'ahkam', 'isFinished']
 

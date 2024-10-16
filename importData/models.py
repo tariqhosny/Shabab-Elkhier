@@ -29,6 +29,7 @@ class Student(models.Model):
     national_id = models.CharField(max_length=20)
     phone = models.CharField(max_length=20, null=True, blank=True)
     next_amount = models.ForeignKey(Part, on_delete=models.PROTECT)
+    last_amount = models.ForeignKey(Part, on_delete=models.PROTECT, null=True, blank=True, related_name='last_amount')
     ahkam = models.CharField(max_length=100)
     active = models.BooleanField(default=True)
     isFinished = models.BooleanField(default=False)

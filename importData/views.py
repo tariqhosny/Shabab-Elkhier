@@ -12,16 +12,40 @@ from openpyxl import Workbook, load_workbook
 
 def importData(request):
     # Fetch data from the database
-    # students = Student.objects.all()
+    new_students = NewStudent.objects.all()
+    students = Student.objects.all()
     items = []
-    # for student in students:
+    # for new_student in new_students:
     #     item = [] 
-    #     if student.phone and len(student.phone) != 10:
-    #         item.append(student.name)
-    #         item.append(student.national_id)
-    #         item.append(student.phone)
-    #         item.append(len(items))
-    #         items.append(item)
+    #     if new_student.national_id and len(new_student.national_id) == 14:
+    #         try:
+    #             student = Student.objects.get(national_id= new_student.national_id)
+    #             item.append(student.name)
+    #             item.append(student.national_id)
+    #             item.append(new_student.grade)
+    #             item.append(len(items))
+    #             items.append(item)
+    #             print('not found')
+    #         except (Student.DoesNotExist):
+    #             print('not found')
+    #             item.append(new_student.name)
+    #             item.append(new_student.national_id)
+    #             item.append(new_student.grade)
+    #             item.append(len(items))
+    #             items.append(item)
+    for student in students:
+        item = [] 
+        try:
+            grade = Grade.objects.filter(student__national_id= student.national_id).first()
+            item.append(student.name)
+            item.append(grade.year)
+            item.append(len(items))
+            items.append(item)
+            student.last_amount = grade.part
+            student.save()
+            print('not found')
+        except (Student.DoesNotExist):
+            print('not found')
     # # Create a new Excel workbook
     # wb = Workbook()
     # ws = wb.active
@@ -58,10 +82,10 @@ def importData(request):
     # grades = Grade.objects.all()
     # for grade in grades:
     #     if grade.student.national_id == '31011032202535': # wrong national id
-    #         try:
-    #             student = Student.objects.get(national_id= '31011032202525')
-                # grade.student = student
-                # grade.save()
+            # try:
+            #     student = Student.objects.get(national_id= '31011032202525')
+            #     grade.student = student
+            #     grade.save()
             #     print('saved')
             # except (Student.DoesNotExist):
             #     print('not found')
