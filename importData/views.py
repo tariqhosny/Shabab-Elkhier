@@ -17,7 +17,7 @@ def importData(request):
     items = []
     # for new_student in new_students:
     #     item = [] 
-    #     if new_student.national_id and len(new_student.national_id) == 14:
+    #     if new_student.national_id:
     #         try:
     #             student = Student.objects.get(national_id= new_student.national_id)
     #             item.append(student.name)
@@ -25,27 +25,68 @@ def importData(request):
     #             item.append(new_student.grade)
     #             item.append(len(items))
     #             items.append(item)
-    #             print('not found')
+    #             grade = Grade()
+    #             grade.grade = new_student.grade
+    #             grade.student = student
+    #             grade.year = Year.objects.get(year= '2024')
+    #             grade.part = new_student.part
+    #             grade.soura = new_student.soura
+    #             grade.from_baqra = new_student.from_baqra
+    #             # grade.save()
     #         except (Student.DoesNotExist):
     #             print('not found')
-    #             item.append(new_student.name)
-    #             item.append(new_student.national_id)
-    #             item.append(new_student.grade)
-    #             item.append(len(items))
-    #             items.append(item)
-    for student in students:
-        item = [] 
-        try:
-            grade = Grade.objects.filter(student__national_id= student.national_id).first()
-            item.append(student.name)
-            item.append(grade.year)
-            item.append(len(items))
-            items.append(item)
-            student.last_amount = grade.part
-            student.save()
-            print('not found')
-        except (Student.DoesNotExist):
-            print('not found')
+    
+    # for new_student in new_students:
+    #     item = [] 
+    #     if new_student.national_id:
+    #         try:
+    #             student = Student.objects.get(national_id= new_student.national_id)
+                # item.append(student.name)
+                # item.append(student.national_id)
+                # item.append(new_student.grade)
+                # item.append(len(items))
+                # items.append(item)
+                # student.last_part = new_student.part
+                # student.save()
+            #     print('not found')
+            # except (Student.DoesNotExist):
+            #     student = Student()
+            #     student.name = new_student.name
+            #     student.national_id = new_student.national_id
+            #     student.phone = new_student.phone
+            #     student.next_amount = new_student.part
+            #     student.last_part = new_student.part
+            #     student.ahkam = "لا يوجد"
+            #     student.save()
+            #     item.append(new_student.name)
+            #     item.append(new_student.national_id)
+            #     item.append(new_student.grade)
+            #     item.append(len(items))
+            #     items.append(item)
+
+    # count = 0
+    # for student in students:
+    #     item = [] 
+    #     try:
+    #         grades = Grade.objects.filter(student__national_id= student.national_id)
+    #         for grade in grades:
+    #             if int(grade.grade) > 0:
+    #                 student.last_part = grade.part
+    #                 student.last_soura = grade.soura
+    #                 student.last_grade = grade.grade
+    #                 student.save()
+    #                 count += 1
+    #                 break
+    #     except (Student.DoesNotExist):
+    #         print('not found')
+
+    # item.append(count)
+    # items.append(item)
+    # for grade in Grade.objects.filter(student__national_id= "30407182200848"):
+    #     item = [] 
+    #     item.append(grade.year)
+    #     items.append(item)
+
     # # Create a new Excel workbook
     # wb = Workbook()
     # ws = wb.active

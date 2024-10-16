@@ -1,3 +1,5 @@
+import openpyxl
+from django.http import HttpResponse
 from django.contrib import admin
 from .models import Soura
 from .models import Part
@@ -6,10 +8,43 @@ from .models import Student
 from .models import Grade
 
 # Register your models here.
+def export_as_excel(modeladmin, request, queryset):
+    # Create an in-memory workbook
+    wb = openpyxl.Workbook()
+    ws = wb.active
+
+    # Define the column headers
+    columns = ['الاسم', 'الرقم القومي', 'التليفون', 'الجزء', 'السورة', 'الدرجة']
+    ws.append(columns)
+
+    # Write data to the worksheet
+    for obj in queryset:
+        row = [
+            obj.name,
+            obj.national_id,
+            obj.phone,
+            obj.last_part.number,
+            obj.last_soura.title,
+            obj.last_grade,
+        ]
+        ws.append(row)
+
+    # Save the workbook to an HttpResponse
+
+    # Create the response
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="All Students.xlsx"'
+
+    # Save the workbook to the response
+    wb.save(response)
+
+    return response
+
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'national_id', 'phone', 'last_amount', 'ahkam', 'isFinished']
+    list_display = ['name', 'national_id', 'phone', 'last_part', 'last_soura', 'last_grade']
     search_fields = ['name', 'national_id']
-    list_filter = ['next_amount', 'ahkam', 'isFinished']
+    list_filter = ['last_part']
+    actions = [export_as_excel]
 
 class GradeAdmin(admin.ModelAdmin):
     def student_national_id(self, obj):
