@@ -14,18 +14,15 @@ def export_as_excel(modeladmin, request, queryset):
     ws = wb.active
 
     # Define the column headers
-    columns = ['الاسم', 'الرقم القومي', 'التليفون', 'الجزء', 'السورة', 'الدرجة']
+    columns = ['الاسم', 'المقرر القادم', 'الاحكام']
     ws.append(columns)
 
     # Write data to the worksheet
     for obj in queryset:
         row = [
             obj.name,
-            obj.national_id,
-            obj.phone,
-            obj.last_part.number,
-            obj.last_soura.title,
-            obj.last_grade,
+            obj.next_amount.number,
+            obj.ahkam,
         ]
         ws.append(row)
 
@@ -41,9 +38,9 @@ def export_as_excel(modeladmin, request, queryset):
     return response
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'national_id', 'phone', 'last_part', 'last_soura', 'last_grade']
+    list_display = ['name', 'national_id', 'phone', 'last_part', 'last_grade', 'last_soura', 'next_amount', 'ahkam']
     search_fields = ['name', 'national_id']
-    list_filter = ['last_part']
+    list_filter = ['next_amount', 'last_part', 'isExamine']
     actions = [export_as_excel]
 
 class GradeAdmin(admin.ModelAdmin):

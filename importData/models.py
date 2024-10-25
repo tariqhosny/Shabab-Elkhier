@@ -31,13 +31,16 @@ class Student(models.Model):
     name = models.CharField(max_length=100)
     national_id = models.CharField(max_length=20)
     phone = models.CharField(max_length=20, null=True, blank=True)
-    next_amount = models.ForeignKey(Part, on_delete=models.PROTECT)
+    active = models.BooleanField(default=True)
+
     last_part = models.ForeignKey(Part, on_delete=models.PROTECT, null=True, blank=True, related_name='last_part')
     last_soura = models.ForeignKey(Soura, null=True, blank=True, on_delete=models.PROTECT)
     last_grade = models.CharField(max_length=3, null=True, blank=True)
+
+    next_amount = models.ForeignKey(Part, on_delete=models.PROTECT)
     ahkam = models.CharField(max_length=100)
-    active = models.BooleanField(default=True)
     isFinished = models.BooleanField(default=False)
+    isExamine = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['name']
