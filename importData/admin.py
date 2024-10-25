@@ -38,9 +38,9 @@ def export_as_excel(modeladmin, request, queryset):
     return response
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'national_id', 'phone', 'last_part', 'last_grade', 'last_soura', 'next_amount', 'ahkam']
+    list_display = ['name', 'national_id', 'phone', 'last_part', 'last_grade', 'last_soura', 'next_amount', 'isFinished']
     search_fields = ['name', 'national_id']
-    list_filter = ['next_amount', 'last_part', 'isExamine']
+    list_filter = ['next_amount', 'last_part', 'isExamine', 'isFinished']
     actions = [export_as_excel]
 
 class GradeAdmin(admin.ModelAdmin):
