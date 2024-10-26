@@ -20,6 +20,7 @@ def landing(request):
 def results(request):
     form = {'nationalIDForm': GetResultsForm}
     form['grades'] = []
+    form['next_amount'] = ""
     sour = []
     if request.method == "POST":
         form['nationalIDForm'] = GetResultsForm(request.POST)
@@ -37,8 +38,19 @@ def results(request):
                         else:
                             sour.append(grade.soura.title)
                     form['sour'] = sour
-            except:
+
+                    next_soura = student.next_amount.soura.first()
+                    if student.isFinished:
+                        form['next_amount'] = student.next_amount.title + " (للتقييم فقط)"
+                    elif student.next_amount.number == 30:
+                        form['next_amount'] = student.next_amount.title
+                    elif student.next_amount.number <= 10:
+                        form['next_amount'] = str(student.next_amount.number) + ' أجزاء' + '\n' + 'من سورة الناس الي سورة ' + next_soura.title
+                    else:
+                        form['next_amount'] = str(student.next_amount.number) + ' جزء' + '\n' + 'من سورة الناس الي سورة ' + next_soura.title
+            except Exception as error:
                 form['grades'] = None
+                print(error)
             form['nationalIDForm'] = GetResultsForm()
     else:
         form['nationalIDForm'] = GetResultsForm()
