@@ -36,11 +36,14 @@ class SubmitNewStudentForm(forms.ModelForm):
         student_id = kwargs.pop('student_id', None)
         min_amount = kwargs.pop('min_amount', None)
         
-        parts = Part.objects.all()
+        parts = Part.objects.filter(active=True)
         if min_amount is not None:
-            parts = Part.objects.filter(number__gte=(min_amount))
+            parts = Part.objects.filter(
+                number__gte=min_amount,
+                active=True
+            )
         else:
-            parts = Part.objects.all()
+            parts = Part.objects.filter(active=True)
 
         if student_id is not None:
             newStudent = NewStudent.objects.get(id = student_id)

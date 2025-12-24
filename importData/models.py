@@ -13,6 +13,7 @@ class Part(models.Model):
     title = models.CharField(max_length=100)
     number = models.IntegerField()
     soura = models.ManyToManyField(Soura)
+    active = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.title + ' ( ' + str(self.number) + ' )'
