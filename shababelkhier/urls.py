@@ -21,7 +21,7 @@ from django.conf.urls import ( handler400, handler403, handler404, handler500 )
 urlpatterns = [
     path('admin_tariq/', admin.site.urls),
     path('', include('landing.urls')),
-    # path('registration', include('registration.urls')),
+    path('registration', include('registration.urls')),
     # path('natiga', include('natiga.urls')),
     # path('', include('importData.urls')),
 ]
