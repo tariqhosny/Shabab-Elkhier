@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib import admin
 from .models import NewStudent
 from .filters import DuplicateNationalIDFilter
+from .filters import DuplicateNameFilter
 
 # Register your models here.
 def export_as_excel(modeladmin, request, queryset):
@@ -43,8 +44,8 @@ export_as_excel.short_description = "Export Selected as Excel"
 class NewStudentAdmin(admin.ModelAdmin):
     list_display = ['name', 'national_id', 'phone', 'part', 'soura', 'grade']
     search_fields = ['name', 'national_id']
-    list_filter = ['part']
-    # list_filter = [DuplicateNationalIDFilter, 'first_time', 'part']
+    # list_filter = ['part']
+    list_filter = [DuplicateNationalIDFilter, DuplicateNameFilter, 'part']
     actions = [export_as_excel]
 
 admin.site.register(NewStudent, NewStudentAdmin)
