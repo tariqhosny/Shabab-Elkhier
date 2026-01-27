@@ -12,18 +12,18 @@ def export_as_excel(modeladmin, request, queryset):
     ws = wb.active
 
     # Define the column headers
-    columns = ['الاسم', 'الرقم القومي', 'التليفون', 'الجزء', 'السورة', 'من البقرة', 'اول مرة']
+    columns = ['الاسم', 'ID', 'الرقم القومي', 'التليفون', 'الجزء', 'السورة', 'اول مرة']
     ws.append(columns)
 
     # Write data to the worksheet
     for obj in queryset:
         row = [
             obj.name,
+            obj.id,
             obj.national_id,
             obj.phone,
             obj.part.title,
             obj.soura.title,
-            obj.from_baqra,
             obj.first_time,
         ]
         ws.append(row)
