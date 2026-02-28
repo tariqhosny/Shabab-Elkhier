@@ -39,18 +39,26 @@
                         </tr>
                         <tr>
                             <th scope="row">عدد الاجزاء</th>
-                            <td>{{student.part.number}}</td>
+                            <td>{{student.part.title}} ({{student.part.number}}) - {{soura}}</td>
                         </tr>
-                        <tr>
+                        {% comment %} <tr>
                             <th scope="row">السورة</th>
                             <td>{{soura}}</td>
-                        </tr>
+                        </tr> {% endcomment %}
                         <tr>
                             <th scope="row">الدرجة</th>
-                            <td>{{student.grade}}%</td>
+                            {% if student.grade == 'غياب' %}
+                              <td>{{student.grade}}</td>
+                            {% else %}
+                              <td>%{{student.grade}}</td>
+                            {% endif %}
                         </tr>
                         <th scope="row">تاريخ الاستلام</th>
                         <td>{{student.prize_time}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">المقرر القادم</th>
+                          <td>{{student.next_amount.title}} ({{student.next_amount.number}}) - {{student.next_amount.soura.first.title}}</td>
                         </tr>
                         </tbody>
                     </table>

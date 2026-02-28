@@ -12,5 +12,6 @@ class NewStudent(models.Model):
     soura = models.ForeignKey(Soura, on_delete=models.PROTECT, related_name='new_student_soura')
     grade = models.CharField(max_length=20, null=True, blank=True)
     prize_time = models.CharField(max_length=100, null=True, blank=True)
+    next_amount = models.ForeignKey(Part, null=True, blank=True, on_delete=models.PROTECT, related_name='next_amount')
     from_baqra = models.BooleanField(default=False)
     first_time = models.BooleanField(default=False)

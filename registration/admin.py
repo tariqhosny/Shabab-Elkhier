@@ -42,7 +42,7 @@ def export_as_excel(modeladmin, request, queryset):
 export_as_excel.short_description = "Export Selected as Excel"
 
 class NewStudentAdmin(admin.ModelAdmin):
-    list_display = ['name', "id", 'national_id', 'part', 'phone', 'soura', 'first_time']
+    list_display = ['name', "id", 'national_id', 'part', 'phone', 'soura', 'grade', 'first_time']
     search_fields = ['name', 'national_id']
     # list_filter = ['part']
     list_filter = [DuplicateNationalIDFilter, DuplicateNameFilter, 'part', 'first_time']

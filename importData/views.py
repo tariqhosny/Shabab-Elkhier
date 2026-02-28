@@ -178,6 +178,55 @@ def importData(request):
 #             items.append(item)
 #         except Exception as error:
 #             print(error)
+    
+    excelFile = load_workbook('/Volumes/Tariq/Shabab Elkheir/Excel Files/2026/students.xlsx')
+    ws = excelFile['sheet']
+
+    count = 0
+    for i in range(2, 974):
+        national_id = ws['H'+str(i)].value
+        name = ws['G'+str(i)].value
+        grade = ws['D'+str(i)].value
+        prize_time = ws['F'+str(i)].value
+        
+        try:
+            phone = ws['I'+str(i)].value
+        except:
+            phone = '0'
+        
+        try:
+            part = Part.objects.get(number= int(ws['B'+str(i)].value))
+        except:
+            print(national_id + " I")
+        
+        try:
+            soura = Soura.objects.get(title= ws['C'+str(i)].value)
+        except:
+            print(national_id + " I")
+        
+        try:
+            next_amount = Part.objects.get(number= int(ws['E'+str(i)].value))
+        except:
+            print(national_id + " I")
+
+
+        try:
+            count += 1
+            student = NewStudent()
+            student.name = name
+            student.national_id = national_id
+            student.phone = phone
+            student.part = part
+            student.soura = soura
+            student.grade = grade
+            student.prize_time = prize_time
+            student.next_amount = next_amount
+            student.save()
+            item = []
+            item.append(student.name)
+            items.append(item)
+        except Exception as error:
+            print(error)
 
 #     print(count)
     return render(request, 'importData/importData.html', {'items': items})

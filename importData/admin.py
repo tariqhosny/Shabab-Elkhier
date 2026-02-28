@@ -14,15 +14,19 @@ def export_as_excel(modeladmin, request, queryset):
     ws = wb.active
 
     # Define the column headers
-    columns = ['الاسم', 'المقرر القادم', 'الاحكام']
+    columns = ['الاسم', 'ID', 'الرقم القومي', 'التليفون', 'المقرر القادم', 'مقدار اخر مسابقة', 'درجة اخر مسابقة']
     ws.append(columns)
 
     # Write data to the worksheet
     for obj in queryset:
         row = [
             obj.name,
-            obj.next_amount.number,
-            obj.ahkam,
+            obj.id,
+            obj.national_id,
+            obj.phone,
+            obj.next_amount.title,
+            obj.last_part.title,
+            obj.last_grade,
         ]
         ws.append(row)
 
