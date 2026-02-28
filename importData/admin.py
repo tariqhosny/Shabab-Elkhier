@@ -6,6 +6,8 @@ from .models import Part
 from .models import Year
 from .models import Student
 from .models import Grade
+from registration.filters import DuplicateNationalIDFilter
+from registration.filters import DuplicateNameFilter
 
 # Register your models here.
 def export_as_excel(modeladmin, request, queryset):
@@ -42,9 +44,9 @@ def export_as_excel(modeladmin, request, queryset):
     return response
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'national_id', 'phone', 'last_part', 'last_grade', 'last_soura', 'next_amount', 'isFinished']
+    list_display = ['name', "id", 'national_id', 'phone', 'last_part', 'last_grade', 'last_soura', 'next_amount', 'isFinished']
     search_fields = ['name', 'national_id']
-    list_filter = ['next_amount', 'last_part', 'isExamine', 'isFinished']
+    list_filter = [DuplicateNationalIDFilter, DuplicateNameFilter, 'next_amount', 'last_part', 'isExamine', 'isFinished']
     actions = [export_as_excel]
 
 class GradeAdmin(admin.ModelAdmin):

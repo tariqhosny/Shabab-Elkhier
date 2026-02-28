@@ -16,41 +16,64 @@ def importData(request):
     new_students = NewStudent.objects.all()
     
     #set the new students to the students table
-    # for new_student in new_students:
-    #     item = [] 
-    #     if new_student.national_id:
-    #         try:
-    #             student = Student.objects.get(national_id= new_student.national_id)
-    #             item.append(student.name)
-    #             item.append(student.national_id)
-    #             item.append(new_student.grade)
-    #             item.append(len(items))
-    #             items.append(item)
-    #             student.last_part = new_student.part
-    #             student.last_part = new_student.part
-    #             student.last_part = new_student.part
-    #             student.last_part = new_student.part
-    #             student.last_part = new_student.part
-    #             student.last_part = new_student.part
-    #             student.save()
-    #             print('not found')
-    #         except (Student.DoesNotExist):
-    #             student = Student()
-    #             student.name = new_student.name
-    #             student.national_id = new_student.national_id
-    #             student.phone = new_student.phone
-    #             student.next_amount = new_student.next_amount
-    #             student.last_part = new_student.part
-    #             if int(new_student.next_amount.number) > 7:
-    #                 student.ahkam = "تحفة الاطفال + احكام التجويد"
-    #             else:
-    #                 student.ahkam = "لا يوجد"
-    #             student.save()
-    #             item.append(new_student.name)
-    #             item.append(new_student.national_id)
-    #             item.append(new_student.grade)
-    #             item.append(len(items))
-    #             items.append(item)
+    for new_student in new_students:
+        item = [] 
+        if new_student.national_id:
+            try:
+                student = Student.objects.get(national_id= new_student.national_id)
+                item.append(student.name)
+                item.append(student.national_id)
+                item.append(new_student.grade)
+                item.append(len(items))
+                items.append(item)
+                student.phone = new_student.phone
+                student.last_part = new_student.part
+                student.last_soura = new_student.soura
+                student.last_grade = new_student.grade
+                student.next_amount = new_student.next_amount
+                if float(new_student.grade) > 0:
+                    student.isExamine = True
+                else:
+                    student.isExamine = False
+                
+                if int(new_student.next_amount.number) > 7:
+                    student.ahkam = "تحفة الاطفال + احكام التجويد"
+                else:
+                    student.ahkam = "لا يوجد"
+                
+                if student.isFinished == False:
+                    if int(new_student.part.number) == 30 and float(new_student.grade) > 68:
+                        student.isFinished == True
+
+                student.save()
+                print('not found')
+            except (Student.DoesNotExist):
+                student = Student()
+                student.name = new_student.name
+                student.national_id = new_student.national_id
+                student.phone = new_student.phone
+                student.last_part = new_student.part
+                student.last_soura = new_student.soura
+                student.last_grade = new_student.grade
+                student.next_amount = new_student.next_amount
+                if float(new_student.grade) > 0:
+                    student.isExamine = True
+                else:
+                    student.isExamine = False
+                
+                if int(new_student.next_amount.number) > 7:
+                    student.ahkam = "تحفة الاطفال + احكام التجويد"
+                else:
+                    student.ahkam = "لا يوجد"
+                    
+                if int(new_student.part.number) == 30 and float(new_student.grade) > 68:
+                    student.isFinished == True
+                student.save()
+                item.append(new_student.name)
+                item.append(new_student.national_id)
+                item.append(new_student.grade)
+                item.append(len(items))
+                items.append(item)
     # for new_student in new_students:
     #     item = [] 
     #     if new_student.national_id:
