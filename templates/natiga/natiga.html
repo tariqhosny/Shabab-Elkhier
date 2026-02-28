@@ -47,11 +47,7 @@
                         </tr> {% endcomment %}
                         <tr>
                             <th scope="row">الدرجة</th>
-                            {% if student.grade == 'غياب' %}
-                              <td>{{student.grade}}</td>
-                            {% else %}
-                              <td>%{{student.grade}}</td>
-                            {% endif %}
+                            <td>%{{student.grade}}</td>
                         </tr>
                         <th scope="row">تاريخ الاستلام</th>
                         <td>{{student.prize_time}}</td>
