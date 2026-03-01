@@ -30,7 +30,7 @@ def results(request):
                 if national_id != None:
                     student = Student.objects.get(national_id = national_id)
                     grades = Grade.objects.all().filter(student = student)
-                    grades = grades.reverse()
+                    #grades = grades.reverse()
                     form['grades'] = grades
                     for grade in grades:
                         if (grade.from_baqra):

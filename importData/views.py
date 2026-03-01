@@ -11,69 +11,123 @@ from openpyxl import Workbook, load_workbook
 # Create your views here.
 
 def importData(request):
-    # Fetch data from the database
     items = []
+    
+    #fetch the new students grades from excel sheet to add them to NewStudents table
+    # excelFile = load_workbook('/Volumes/Tariq/Shabab Elkheir/Excel Files/2026/students.xlsx')
+    # ws = excelFile['sheet']
+
+    # count = 0
+    # for i in range(2, 974):
+    #     national_id = ws['H'+str(i)].value
+    #     name = ws['G'+str(i)].value
+    #     grade = ws['D'+str(i)].value
+    #     prize_time = ws['F'+str(i)].value
+        
+    #     try:
+    #         phone = ws['I'+str(i)].value
+    #     except:
+    #         phone = '0'
+        
+    #     try:
+    #         part = Part.objects.get(number= int(ws['B'+str(i)].value))
+    #     except:
+    #         print(national_id + " I")
+        
+    #     try:
+    #         soura = Soura.objects.get(title= ws['C'+str(i)].value)
+    #     except:
+    #         print(national_id + " I")
+        
+    #     try:
+    #         next_amount = Part.objects.get(number= int(ws['E'+str(i)].value))
+    #     except:
+    #         print(national_id + " I")
+
+
+    #     try:
+    #         count += 1
+    #         student = NewStudent()
+    #         student.name = name
+    #         student.national_id = national_id
+    #         student.phone = phone
+    #         student.part = part
+    #         student.soura = soura
+    #         student.grade = grade
+    #         student.prize_time = prize_time
+    #         student.next_amount = next_amount
+    #         student.save()
+    #         item = []
+    #         item.append(student.name)
+    #         items.append(item)
+    #     except Exception as error:
+    #         print(error)
+    
+    
+    # Fetch data from the database
     new_students = NewStudent.objects.all()
     
     #set the new students to the students table
-    for new_student in new_students:
-        item = [] 
-        if new_student.national_id:
-            try:
-                student = Student.objects.get(national_id= new_student.national_id)
-                item.append(student.name)
-                item.append(student.national_id)
-                item.append(new_student.grade)
-                item.append(len(items))
-                items.append(item)
-                student.phone = new_student.phone
-                student.last_part = new_student.part
-                student.last_soura = new_student.soura
-                student.last_grade = new_student.grade
-                student.next_amount = new_student.next_amount
-                if float(new_student.grade) > 0:
-                    student.isExamine = True
-                else:
-                    student.isExamine = False
+    # for new_student in new_students:
+    #     item = [] 
+    #     if new_student.national_id:
+    #         try:
+    #             student = Student.objects.get(national_id= new_student.national_id)
+    #             item.append(student.name)
+    #             item.append(student.national_id)
+    #             item.append(new_student.grade)
+    #             item.append(len(items))
+    #             items.append(item)
+    #             student.phone = new_student.phone
+    #             student.last_part = new_student.part
+    #             student.last_soura = new_student.soura
+    #             student.last_grade = new_student.grade
+    #             student.next_amount = new_student.next_amount
+    #             if float(new_student.grade) > 0:
+    #                 student.isExamine = True
+    #             else:
+    #                 student.isExamine = False
                 
-                if int(new_student.next_amount.number) > 7:
-                    student.ahkam = "تحفة الاطفال + احكام التجويد"
-                else:
-                    student.ahkam = "لا يوجد"
+    #             if int(new_student.next_amount.number) > 7:
+    #                 student.ahkam = "تحفة الاطفال + احكام التجويد"
+    #             else:
+    #                 student.ahkam = "لا يوجد"
                 
-                if student.isFinished == False:
-                    if int(new_student.part.number) == 30 and float(new_student.grade) > 68:
-                        student.isFinished == True
+    #             if student.isFinished == False:
+    #                 if int(new_student.part.number) == 30 and float(new_student.grade) > 68:
+    #                     student.isFinished == True
 
-                student.save()
-                print('not found')
-            except (Student.DoesNotExist):
-                student = Student()
-                student.name = new_student.name
-                student.national_id = new_student.national_id
-                student.phone = new_student.phone
-                student.last_part = new_student.part
-                student.last_soura = new_student.soura
-                student.last_grade = new_student.grade
-                student.next_amount = new_student.next_amount
-                if float(new_student.grade) > 0:
-                    student.isExamine = True
-                else:
-                    student.isExamine = False
+    #             student.save()
+    #             print('not found')
+    #         except (Student.DoesNotExist):
+    #             student = Student()
+    #             student.name = new_student.name
+    #             student.national_id = new_student.national_id
+    #             student.phone = new_student.phone
+    #             student.last_part = new_student.part
+    #             student.last_soura = new_student.soura
+    #             student.last_grade = new_student.grade
+    #             student.next_amount = new_student.next_amount
+    #             if float(new_student.grade) > 0:
+    #                 student.isExamine = True
+    #             else:
+    #                 student.isExamine = False
                 
-                if int(new_student.next_amount.number) > 7:
-                    student.ahkam = "تحفة الاطفال + احكام التجويد"
-                else:
-                    student.ahkam = "لا يوجد"
+    #             if int(new_student.next_amount.number) > 7:
+    #                 student.ahkam = "تحفة الاطفال + احكام التجويد"
+    #             else:
+    #                 student.ahkam = "لا يوجد"
                     
-                if int(new_student.part.number) == 30 and float(new_student.grade) > 68:
-                    student.isFinished == True
-                student.save()
-                item.append(new_student.name)
-                item.append(new_student.national_id)
-                item.append(new_student.grade)
-                item.append(len(items))
-                items.append(item)
+    #             if int(new_student.part.number) == 30 and float(new_student.grade) > 68:
+    #                 student.isFinished == True
+    #             student.save()
+    #             item.append(new_student.name)
+    #             item.append(new_student.national_id)
+    #             item.append(new_student.grade)
+    #             item.append(len(items))
+    #             items.append(item)
+    
+    #add the new grade to the grades table
     # for new_student in new_students:
     #     item = [] 
     #     if new_student.national_id:
@@ -94,6 +148,9 @@ def importData(request):
     #             grade.save()
     #         except (Student.DoesNotExist):
     #             print('not found')
+
+
+
 
 #     students = Student.objects.all()
 #     for student in students:
@@ -170,8 +227,7 @@ def importData(request):
             # item.append(grade.grade)
             # item.append(grade.student.next_amount.title)
             # items.append(item)
-    
-    
+
 #     excelFile = load_workbook('/Volumes/Data/Shabab Al-Barqy/Shabab Elkhier/Website/students.xlsx')
 #     ws = excelFile['sheet']
 
@@ -210,55 +266,5 @@ def importData(request):
 #             items.append(item)
 #         except Exception as error:
 #             print(error)
-    
-    # excelFile = load_workbook('/Volumes/Tariq/Shabab Elkheir/Excel Files/2026/students.xlsx')
-    # ws = excelFile['sheet']
-
-    # count = 0
-    # for i in range(2, 974):
-    #     national_id = ws['H'+str(i)].value
-    #     name = ws['G'+str(i)].value
-    #     grade = ws['D'+str(i)].value
-    #     prize_time = ws['F'+str(i)].value
-        
-    #     try:
-    #         phone = ws['I'+str(i)].value
-    #     except:
-    #         phone = '0'
-        
-    #     try:
-    #         part = Part.objects.get(number= int(ws['B'+str(i)].value))
-    #     except:
-    #         print(national_id + " I")
-        
-    #     try:
-    #         soura = Soura.objects.get(title= ws['C'+str(i)].value)
-    #     except:
-    #         print(national_id + " I")
-        
-    #     try:
-    #         next_amount = Part.objects.get(number= int(ws['E'+str(i)].value))
-    #     except:
-    #         print(national_id + " I")
-
-
-    #     try:
-    #         count += 1
-    #         student = NewStudent()
-    #         student.name = name
-    #         student.national_id = national_id
-    #         student.phone = phone
-    #         student.part = part
-    #         student.soura = soura
-    #         student.grade = grade
-    #         student.prize_time = prize_time
-    #         student.next_amount = next_amount
-    #         student.save()
-    #         item = []
-    #         item.append(student.name)
-    #         items.append(item)
-    #     except Exception as error:
-    #         print(error)
-
 #     print(count)
     return render(request, 'importData/importData.html', {'items': items})
