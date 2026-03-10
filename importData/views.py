@@ -266,5 +266,16 @@ def importData(request):
 #             items.append(item)
 #         except Exception as error:
 #             print(error)
+
+
+    # for new_student in new_students:
+    #     item = [] 
+    #     if new_student.national_id:
+    #         try:
+    #             if new_student.prize_time == 'الجمعة 13 مارس الموافق 23 رمضان "المجمع"':
+    #                 new_student.prize_time = 'الجمعة 13 مارس الموافق 23 رمضان "المجمع بعد العصر”'
+    #                 new_student.save()
+    #         except (Student.DoesNotExist):
+    #             print('not found')
 #     print(count)
     return render(request, 'importData/importData.html', {'items': items})
